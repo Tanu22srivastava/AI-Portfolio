@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chat - Tanushree Srivastava</title>
+    <link rel="stylesheet" href="CSS/ai_chat.css">
+</head>
+<body>
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <div class="matrix-bg" id="matrixBg"></div>
+
+    <nav>
+        <div class="logo">TANUSHREE SRIVASTAVA</div>
+        <ul class="nav-menu">
+            <li class="nav-item"><a href="index.html">Home</a></li>
+            <li class="nav-item"><a href="about.html">About</a></li>
+            <li class="nav-item"><a href="projects.html">Projects</a></li>
+            <li class="nav-item"><a href="skills.html">Skills</a></li>
+            <li class="nav-item active"><a href="#ai-chat">AI Chat</a></li>
+            <li class="nav-item"><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="main-container">
+        <div class="page-header">
+            <h1 class="page-title">Chat with Tanushree</h1>
+            <p class="page-subtitle">
+                Have a casual conversation with me! Ask about my projects, tech journey, or anything you're curious about 😊
+            </p>
+        </div>
+
+        <div class="chat-container">
+            <div class="chat-header">
+                <div class="ai-avatar">👩‍💻</div>
+                <div class="ai-status">
+                    <div class="ai-name">Tanushree Srivastava</div>
+                    <div class="ai-online">
+                        <div class="status-dot"></div>
+                        Online
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+                <div class="message ai">
+                    <div class="message-avatar">👩‍💻</div>
+                    <div class="message-content">
+                        Hey there! 👋 I'm Tanushree Srivastava - a 22-year-old data scientist who's absolutely obsessed with AI and building cool stuff! 
+                        I'm currently interning at Workelevate and loving every bit of my journey in tech. What would you like to know about me or my projects?
+                        <div class="message-time">Just now</div>
+                    </div>
+                </div>
+
+                <div class="typing-indicator" id="typingIndicator">
+                    <div class="message-avatar">👩‍💻</div>
+                    <div class="typing-dots">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input-container">
+                <div class="suggestions-container">
+                    <div class="suggestions-title">Try asking me about:</div>
+                    <div class="suggestions">
+                        <div class="suggestion-chip" onclick="sendSuggestion('Tell me about your AI projects')">AI Projects</div>
+                        <div class="suggestion-chip" onclick="sendSuggestion('What technologies do you work with?')">Tech Stack</div>
+                        <div class="suggestion-chip" onclick="sendSuggestion('How can I contact you?')">Contact</div>
+                        <div class="suggestion-chip" onclick="sendSuggestion('What are your career goals?')">Career Goals</div>
+                    </div>
+                </div>
+                
+                <div class="input-wrapper">
+                    <textarea 
+                        class="chat-input" 
+                        id="chatInput" 
+                        placeholder="Ask me anything about my work, journey, or just say hi! 😊"
+                        rows="1"
+                    ></textarea>
+                    <button class="send-button" id="sendButton" onclick="sendMessage()">
+                        ➤
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="JS/ai.js">
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Tanushree Srivastava</title>
+    <link rel="stylesheet" href="CSS/contact.css">
+</head>
+<body>
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <div class="cosmic-bg">
+        <div class="stars" id="stars"></div>
+    </div>
+
+    <nav>
+        <div class="logo">TANUSHREE SRIVASTAVA</div>
+        <ul class="nav-menu">
+            <li class="nav-item"><a href="landing.html">Home</a></li>
+            <li class="nav-item"><a href="about.html">About</a></li>
+            <li class="nav-item"><a href="projects.html">Projects</a></li>
+            <li class="nav-item"><a href="skills.html">Skills</a></li>
+            <li class="nav-item"><a href="ai_chat.html">AI Chat</a></li>
+            <li class="nav-item active"><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="main-container">
+        <div class="contact-info">
+            <h1 class="page-title">Let's Connect</h1>
+            <p class="page-subtitle">
+                Ready to collaborate on your next project? I'm always excited to work on innovative solutions 
+                and discuss new opportunities in software development and data science.
+            </p>
+
+            <div class="availability-badge">
+                <div class="availability-dot"></div>
+                Available for new projects
+            </div>
+
+            <div class="contact-methods">
+                <a href="mailto:alex.chen@example.com" class="contact-method">
+                    <div class="method-icon">📧</div>
+                    <div class="method-info">
+                        <div class="method-title">Email</div>
+                        <div class="method-detail">tanushreesrivastava22@gmail.com</div>
+                    </div>
+                </a>
+
+                <a href="tel:+1234567890" class="contact-method">
+                    <div class="method-icon">📱</div>
+                    <div class="method-info">
+                        <div class="method-title">Phone</div>
+                        <div class="method-detail">+91 8307312866</div>
+                    </div>
+                </a>
+
+                <a href="#" class="contact-method">
+                    <div class="method-icon">📍</div>
+                    <div class="method-info">
+                        <div class="method-title">Location</div>
+                        <div class="method-detail">Noida, India</div>
+                    </div>
+                </a>
+
+                <a href="#" class="contact-method">
+                    <div class="method-icon">💬</div>
+                    <div class="method-info">
+                        <div class="method-title">Response Time</div>
+                        <div class="method-detail">Usually within 24 hours</div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/tanushree-sri/" class="social-link" title="LinkedIn">💼</a>
+                <a href="https://github.com/Tanu22srivastava" class="social-link" title="GitHub">💻</a>
+                <a href="https://medium.com/@srivastavatanushree08" class="social-link" title="Medium">📝</a>
+            </div>
+        </div>
+
+        <div class="contact-form-container">
+            <h2 class="form-title">Send a Message</h2>
+            <p class="form-subtitle">
+                Have a project in mind? Let's discuss how we can work together to bring your ideas to life.
+            </p>
+
+            <form id="contactForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="firstName">First Name *</label>
+                        <input type="text" id="firstName" name="firstName" class="form-input" placeholder="John" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="lastName">Last Name *</label>
+                        <input type="text" id="lastName" name="lastName" class="form-input" placeholder="Doe" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" class="form-input" placeholder="john@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="company">Company/Organization</label>
+                    <input type="text" id="company" name="company" class="form-input" placeholder="Acme Inc.">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="subject">Subject *</label>
+                    <input type="text" id="subject" name="subject" class="form-input" placeholder="Project Collaboration" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="message">Message *</label>
+                    <textarea id="message" name="message" class="form-textarea" placeholder="Tell me about your project, timeline, and how I can help..." required></textarea>
+                </div>
+
+                <button type="submit" class="submit-button">
+                    Send Message
+                    <div class="loading"></div>
+                </button>
+
+                <div class="success-message" id="successMessage">
+                    ✅ Message sent successfully! I'll get back to you within 24 hours.
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="JS/contact.js">
+    </script>
+</body>
+</html>

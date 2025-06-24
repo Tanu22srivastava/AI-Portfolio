@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Tanushree Srivastava</title>
+    <link rel="stylesheet" href="CSS/projects.css">
+</head>
+<body>
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <div class="circuit-bg"></div>
+
+    <nav>
+        <div class="logo">TANUSHREE SRIVASTAVA</div>
+        <ul class="nav-menu">
+            <li class="nav-item"><a href="landing.html">Home</a></li>
+            <li class="nav-item"><a href="about.html">About</a></li>
+            <li class="nav-item active"><a href="#projects">Projects</a></li>
+            <li class="nav-item"><a href="skills.html">Skills</a></li>
+            <li class="nav-item"><a href="ai_chat.html">AI Chat</a></li>
+            <li class="nav-item"><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="main-container">
+        <div class="page-header">
+            <h1 class="page-title">My Projects</h1>
+            <p class="page-subtitle">
+                A showcase of innovative solutions, creative applications, and cutting-edge technology implementations
+            </p>
+        </div>
+
+        <div class="filter-tabs">
+            <div class="filter-tab active" data-filter="all">All Projects</div>
+            <div class="filter-tab" data-filter="web">Web Apps</div>
+            <div class="filter-tab" data-filter="ai">AI/ML</div>
+            <div class="filter-tab" data-filter="data">Data Science</div>
+        </div>
+
+        <div class="projects-grid">
+            <!-- Featured Project -->
+            <div class="project-card featured-project" data-category="ai">
+                <div class="featured-badge">Featured</div>
+                <div class="project-header">
+                    <div class="project-icon">🤖</div>
+                    <div class="project-overlay"></div>
+                    <!-- <div class="project-status">Live</div> -->
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Supplier Selection using Generative AI</h3>
+                    <p class="project-description">
+                        A data-driven platform leveraging generative AI for intelligent supplier selection and decision support.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Streamlit</span>
+                        <span class="tech-tag">Scikit-Learn</span>
+                        <span class="tech-tag">Generative AI</span>
+                        <!-- <span class="tech-tag">Docker</span> -->
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link link-primary" onclick="openModal('ai-platform')">
+                            View Details
+                            <span>→</span>
+                        </a>
+                        <a href="https://github.com/Tanu22srivastava/Supplier-Selection-using-Generative-AI" class="project-link link-secondary">
+                            GitHub
+                            <span>↗</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Regular Projects -->
+            <div class="project-card" data-category="web">
+                <div class="project-header">
+                    <div class="project-icon">🌐</div>
+                    <div class="project-overlay"></div>
+                    <!-- <div class="project-status">Live</div> -->
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Smart Document Management Platform</h3>
+                    <p class="project-description">
+                        Provides users with the ability to register and sign in to manage their records required by their organization and more. Users can update their password, update their profile picture, upload and categorize documents, and download them as needed.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Java</span>
+                        <span class="tech-tag">Spring Boot</span>
+                        <span class="tech-tag">MySQL</span>
+                        <span class="tech-tag">Thymeleaf</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link link-primary" onclick="openModal('smartdoc')">
+                            View Details
+                            <span>→</span>
+                        </a>
+                        <a href="https://github.com/Tanu22srivastava/SmartDoc" class="project-link link-secondary">
+                            GitHub
+                            <span>↗</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="ai">
+                <div class="project-header">
+                    <div class="project-icon">🧠</div>
+                    <div class="project-overlay"></div>
+                    <!-- <div class="project-status">Beta</div> -->
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">AI Resume Analyser</h3>
+                    <p class="project-description">
+                        AI-powered resume analysing tool using gemini models for analysing resume, gives you feedback according to the job description
+                        and tells you if you are a good fit or not.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Gemini API</span>
+                        <span class="tech-tag">Streamlit</span>
+                        <span class="tech-tag">Python</span>
+                        <!-- <span class="tech-tag">PostgreSQL</span> -->
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link link-primary" onclick="openModal('ai')">
+                            View Details
+                            <span>→</span>
+                        </a>
+                        <a href="https://github.com/Tanu22srivastava/Resume-Analyser-using-GenerativeAI" class="project-link link-secondary">
+                            GitHub
+                            <span>↗</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="data">
+                <div class="project-header">
+                    <div class="project-icon">📱</div>
+                    <div class="project-overlay"></div>
+                    <!-- <div class="project-status">Live</div> -->
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">AI IT Chatbot</h3>
+                    <p class="project-description">
+                        An IT Chatbot, which can take up your IT query, detect the intent, and also generate ticket in Service Now and Jira Platform.
+                        It also can install, uninstall and update the application just by giving it a prompt.  
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Streamlit</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Gemini API</span>
+                        <span class="tech-tag">Machine Learning</span>
+                        <span class="tech-tag">BERT Model</span>
+                        <span class="tech-tag">Scikit-Learn</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link link-primary" onclick="openModal('chat')">
+                            View Details
+                            <span>→</span>
+                        </a>
+                        <a href="https://github.com/Tanu22srivastava/AI-IT-CHATBOT" class="project-link link-secondary">
+                            GitHub
+                            <span>↗</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="web">
+                <div class="project-header">
+                    <div class="project-icon">📊</div>
+                    <div class="project-overlay"></div>
+                    <!-- <div class="project-status">Live</div> -->
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Real-time Pizza Delivery Application</h3>
+                    <p class="project-description">
+                        The application allows users to register, login, and place pizza orders. Users can make payments using cash on delivery or online banking. The application provides real-time order tracking for users and a separate admin interface to manage customer data and track orders.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">Express</span>
+                        <span class="tech-tag">MongoDB</span>
+                        <span class="tech-tag">Socket.IO</span>
+                        <span class="tech-tag">HTML/CSS</span>
+                        <span class="tech-tag">JavaScript</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link link-primary" onclick="openModal('pizza')">
+                            View Details
+                            <span>→</span>
+                        </a>
+                        <a href="https://github.com/Tanu22srivastava/pizza-real-time" class="project-link link-secondary">
+                            GitHub
+                            <span>↗</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Project Modal -->
+    <div class="project-modal" id="projectModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div id="modalContent">
+                <!-- Modal content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script src="JS/projects.js">
+    </script>
+</body>
+</html>
