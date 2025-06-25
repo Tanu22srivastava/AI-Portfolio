@@ -89,12 +89,12 @@ function getProjectData(projectId) {
             description: 'A data-driven platform leveraging generative AI for intelligent supplier selection and decision support.',
             features: [
                 'Upload and preview supplier data',
-                'Choose between: AI-powered ranking using Google Gemini or Manual ranking with custom criteria and filters',
+                'AI-powered ranking using Google Gemini or Manual ranking with custom criteria and filters',
                 'Interactive charts comparing top suppliers',
                 'AI-generated supplier evaluation reports',
                 'Export rankings and reports to CSV and PDF formats'
             ],
-            tech: ['Python', 'Streamlit', 'Scukit-Learn', 'Generative AI'],
+            tech: ['Python', 'Streamlit', 'Scikit-Learn', 'Generative AI'],
             githubUrl: 'https://github.com/Tanu22srivastava/Supplier-Selection-using-Generative-AI'
         },
         'smartdoc': {

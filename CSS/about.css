@@ -501,3 +501,121 @@ nav {
         flex-direction: column;
     }
 }
+
+
+/* Mobile Responsive Fixes for About Page */
+@media (max-width: 1024px) {
+    .about-section {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 0 30px;
+    }
+    
+    .profile-container {
+        width: 300px;
+        height: 350px;
+    }
+    
+    .profile-image {
+        width: 200px;
+        height: 200px;
+        font-size: 4rem;
+    }
+    
+    .stats-container {
+        position: static;
+        transform: none;
+        justify-content: center;
+        margin-top: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-container {
+        padding: 120px 20px 60px;
+    }
+    
+    .page-title {
+        font-size: 2.5rem;
+    }
+    
+    .profile-container {
+        width: 250px;
+        height: 300px;
+        margin: 0 auto;
+    }
+    
+    .profile-image {
+        width: 180px;
+        height: 180px;
+        font-size: 3rem;
+    }
+    
+    .timeline {
+        padding-left: 20px;
+    }
+    
+    .timeline::before {
+        left: 10px;
+    }
+    
+    .timeline-item::before {
+        left: 1px;
+    }
+    
+    .timeline-item {
+        padding-left: 30px;
+    }
+    
+    .skills-preview {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+    
+    .skill-tag {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+    
+    .cta-section {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .cta-btn {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-title {
+        font-size: 2rem;
+    }
+    
+    .intro-text {
+        font-size: 16px;
+    }
+    
+    .profile-container {
+        width: 200px;
+        height: 250px;
+    }
+    
+    .profile-image {
+        width: 150px;
+        height: 150px;
+        font-size: 2.5rem;
+    }
+    
+    .stats-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .stat-item {
+        min-width: auto;
+        width: 100px;
+    }
+}

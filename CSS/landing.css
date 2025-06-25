@@ -503,3 +503,89 @@ nav {
         transform: rotate(360deg);
     }
 }
+
+/* Mobile Responsive Fixes for Landing Page */
+@media (max-width: 768px) {
+    /* Navigation */
+    nav {
+        padding: 20px 20px;
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .logo {
+        font-size: 24px;
+    }
+    
+    .nav-menu {
+        display: none; /* Hide menu on mobile */
+    }
+    
+    /* Hero Section */
+    .hero {
+        padding: 0 20px;
+        height: auto;
+        min-height: 100vh;
+    }
+    
+    .hero-content {
+        padding-top: 120px;
+    }
+    
+    .hero-subtitle {
+        font-size: 14px;
+        letter-spacing: 1px;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem !important;
+        line-height: 1.1;
+    }
+    
+    .hero-description {
+        font-size: 16px;
+        padding: 0 10px;
+        line-height: 1.5;
+    }
+    
+    .cta-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .cta-primary, .cta-secondary {
+        width: 200px;
+        padding: 15px 30px;
+        font-size: 14px;
+    }
+    
+    /* Grid background adjustments */
+    .grid-container {
+        display: none; /* Hide complex animations on mobile */
+    }
+    
+    /* Scroll indicator */
+    .scroll-indicator {
+        bottom: 20px;
+    }
+    
+    .scroll-text {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 2rem !important;
+    }
+    
+    .hero-description {
+        font-size: 14px;
+    }
+    
+    .cta-primary, .cta-secondary {
+        width: 180px;
+        padding: 12px 25px;
+    }
+}
