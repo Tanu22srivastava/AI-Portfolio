@@ -4,15 +4,23 @@
     box-sizing: border-box;
 }
 
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
     background: #000;
     color: #fff;
     overflow-x: hidden;
     cursor: none;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-/* Enhanced Cursor */
+/* Enhanced Cursor - Desktop Only */
 .cursor {
     position: fixed;
     width: 20px;
@@ -23,6 +31,7 @@ body {
     z-index: 9999;
     mix-blend-mode: difference;
     transition: transform 0.1s ease;
+    opacity: 0;
 }
 
 .cursor-follower {
@@ -34,6 +43,25 @@ body {
     pointer-events: none;
     z-index: 9998;
     transition: all 0.15s ease;
+    opacity: 0;
+}
+
+/* Show cursor only on desktop */
+@media (min-width: 1024px) {
+    .cursor,
+    .cursor-follower {
+        opacity: 1;
+    }
+    
+    body {
+        cursor: none;
+    }
+}
+
+@media (max-width: 1023px) {
+    body {
+        cursor: default !important;
+    }
 }
 
 /* 3D Background Grid */
@@ -63,7 +91,6 @@ body {
     0% {
         transform: rotateX(60deg) translateZ(-100px) translateX(0) translateY(0);
     }
-
     100% {
         transform: rotateX(60deg) translateZ(-100px) translateX(-50px) translateY(-50px);
     }
@@ -116,54 +143,87 @@ body {
 }
 
 @keyframes float {
-
-    0%,
-    100% {
+    0%, 100% {
         transform: translateY(0px) translateX(0px) rotate(0deg);
     }
-
     25% {
         transform: translateY(-50px) translateX(30px) rotate(90deg);
     }
-
     50% {
         transform: translateY(-20px) translateX(-40px) rotate(180deg);
     }
-
     75% {
         transform: translateY(-80px) translateX(20px) rotate(270deg);
     }
 }
 
-/* Navigation */
+/* FIXED NAVIGATION */
 nav {
     position: fixed;
     top: 0;
     width: 100%;
-    padding: 30px 60px;
+    padding: 20px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     z-index: 1000;
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
 }
 
 .logo {
-    font-size: 28px;
+    font-size: 20px;
     font-weight: 700;
     background: linear-gradient(135deg, #00ffff, #ff00ff, #ffff00);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     letter-spacing: -1px;
+    z-index: 1001;
 }
 
+/* FIXED Hamburger Menu - Hidden by default, shown on mobile */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1001;
+    position: relative;
+    /* CRITICAL FIX: Force hamburger to stay on the right */
+    margin-left: auto;
+    order: 2;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: linear-gradient(90deg, #00ffff, #ff00ff);
+    margin: 3px 0;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* Desktop Navigation - Default */
 .nav-menu {
     display: flex;
-    gap: 40px;
+    gap: 30px;
     list-style: none;
+    align-items: center;
 }
 
 .nav-item a {
@@ -192,8 +252,83 @@ nav {
     transform: translateY(-2px);
 }
 
-.nav-item a:hover::before {
+.nav-item a:hover::before,
+.nav-item.active a::before {
     width: 100%;
+}
+
+/* Mobile Navigation Styles */
+@media (max-width: 768px) {
+    nav {
+        padding: 15px 20px;
+        /* CRITICAL FIX: Ensure nav maintains flex layout */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .logo {
+        font-size: 18px;
+        /* CRITICAL FIX: Ensure logo stays on left */
+        order: 1;
+        flex-shrink: 0;
+    }
+
+    /* Show hamburger on mobile */
+    .hamburger {
+        display: flex;
+        /* CRITICAL FIX: Ensure hamburger stays on right */
+        order: 2;
+        margin-left: auto;
+    }
+
+    /* Hide desktop menu and replace with mobile menu */
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(20px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        transition: right 0.3s ease;
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
+        order: 3;
+    }
+
+    .nav-menu.active {
+        right: 0;
+    }
+
+    .nav-item a {
+        font-size: 24px;
+        padding: 15px 25px;
+        display: block;
+        text-align: center;
+        border-radius: 10px;
+        background: transparent;
+    }
+
+    .nav-item a:hover,
+    .nav-item.active a {
+        background: rgba(0, 255, 255, 0.1);
+        transform: scale(1.05);
+    }
+
+    /* Remove desktop hover effects on mobile */
+    .nav-item a::before {
+        display: none;
+    }
+}
+
+/* Prevent body scroll when menu is open */
+body.nav-open {
+    overflow: hidden;
 }
 
 /* Hero Section */
@@ -205,6 +340,7 @@ nav {
     text-align: center;
     position: relative;
     overflow: hidden;
+    padding: 0 20px;
 }
 
 .hero-content {
@@ -233,7 +369,7 @@ nav {
 }
 
 .hero-title {
-    font-size: clamp(3rem, 8vw, 7rem);
+    font-size: clamp(2.5rem, 8vw, 7rem);
     font-weight: 800;
     line-height: 0.9;
     margin-bottom: 30px;
@@ -246,7 +382,7 @@ nav {
 }
 
 .hero-description {
-    font-size: 24px;
+    font-size: clamp(16px, 4vw, 24px);
     color: rgba(255, 255, 255, 0.7);
     margin-bottom: 50px;
     line-height: 1.6;
@@ -255,7 +391,7 @@ nav {
 
 .cta-container {
     display: flex;
-    gap: 30px;
+    gap: 20px;
     justify-content: center;
     flex-wrap: wrap;
     animation: fadeInUp 1s ease-out 0.9s both;
@@ -263,7 +399,7 @@ nav {
 
 .cta-primary,
 .cta-secondary {
-    padding: 18px 40px;
+    padding: 15px 30px;
     border: none;
     border-radius: 50px;
     font-size: 16px;
@@ -276,6 +412,8 @@ nav {
     gap: 10px;
     position: relative;
     overflow: hidden;
+    min-width: 160px;
+    justify-content: center;
 }
 
 .cta-primary {
@@ -300,8 +438,8 @@ nav {
 }
 
 .cta-primary:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0, 255, 255, 0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(0, 255, 255, 0.4);
 }
 
 .cta-secondary {
@@ -314,49 +452,8 @@ nav {
 .cta-secondary:hover {
     background: rgba(255, 255, 255, 0.1);
     border-color: #00ffff;
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0, 255, 255, 0.2);
-}
-
-/* Scroll Indicator */
-.scroll-indicator {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    animation: fadeInUp 1s ease-out 1.2s both;
-}
-
-.scroll-text {
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.5);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-}
-
-.scroll-line {
-    width: 2px;
-    height: 50px;
-    background: linear-gradient(to bottom, #00ffff, transparent);
-    animation: scrollPulse 2s ease-in-out infinite;
-}
-
-@keyframes scrollPulse {
-
-    0%,
-    100% {
-        opacity: 0.5;
-        transform: scaleY(1);
-    }
-
-    50% {
-        opacity: 1;
-        transform: scaleY(1.2);
-    }
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(0, 255, 255, 0.2);
 }
 
 /* Floating Elements */
@@ -391,15 +488,12 @@ nav {
         opacity: 0;
         transform: translateY(100vh) rotate(0deg);
     }
-
     10% {
         opacity: 1;
     }
-
     90% {
         opacity: 1;
     }
-
     100% {
         opacity: 0;
         transform: translateY(-100vh) rotate(360deg);
@@ -407,12 +501,9 @@ nav {
 }
 
 @keyframes gradientFlow {
-
-    0%,
-    100% {
+    0%, 100% {
         background-position: 0% 50%;
     }
-
     50% {
         background-position: 100% 50%;
     }
@@ -423,43 +514,9 @@ nav {
         opacity: 0;
         transform: translateY(30px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
-    }
-}
-
-/* Mobile Responsive */
-@media (max-width: 768px) {
-    nav {
-        padding: 20px 30px;
-    }
-
-    .nav-menu {
-        gap: 20px;
-    }
-
-    .hero-subtitle {
-        font-size: 14px;
-        letter-spacing: 2px;
-    }
-
-    .hero-description {
-        font-size: 18px;
-        padding: 0 20px;
-    }
-
-    .cta-container {
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-    }
-
-    .cta-primary,
-    .cta-secondary {
-        width: 200px;
-        justify-content: center;
     }
 }
 
@@ -498,94 +555,22 @@ nav {
     0% {
         transform: rotate(0deg);
     }
-
     100% {
         transform: rotate(360deg);
     }
 }
 
-/* Mobile Responsive Fixes for Landing Page */
+/* Performance optimizations for mobile */
 @media (max-width: 768px) {
-    /* Navigation */
-    nav {
-        padding: 20px 20px;
-        flex-direction: column;
-        gap: 20px;
-    }
-    
-    .logo {
-        font-size: 24px;
-    }
-    
-    .nav-menu {
-        display: none; /* Hide menu on mobile */
-    }
-    
-    /* Hero Section */
-    .hero {
-        padding: 0 20px;
-        height: auto;
-        min-height: 100vh;
-    }
-    
-    .hero-content {
-        padding-top: 120px;
-    }
-    
-    .hero-subtitle {
-        font-size: 14px;
-        letter-spacing: 1px;
-    }
-    
-    .hero-title {
-        font-size: 2.5rem !important;
-        line-height: 1.1;
-    }
-    
-    .hero-description {
-        font-size: 16px;
-        padding: 0 10px;
-        line-height: 1.5;
-    }
-    
-    .cta-container {
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-    }
-    
-    .cta-primary, .cta-secondary {
-        width: 200px;
-        padding: 15px 30px;
-        font-size: 14px;
-    }
-    
-    /* Grid background adjustments */
     .grid-container {
         display: none; /* Hide complex animations on mobile */
     }
-    
-    /* Scroll indicator */
-    .scroll-indicator {
-        bottom: 20px;
-    }
-    
-    .scroll-text {
-        font-size: 12px;
-    }
-}
 
-@media (max-width: 480px) {
-    .hero-title {
-        font-size: 2rem !important;
+    .orb {
+        filter: blur(20px); /* Reduce blur intensity */
     }
-    
-    .hero-description {
-        font-size: 14px;
-    }
-    
-    .cta-primary, .cta-secondary {
-        width: 180px;
-        padding: 12px 25px;
+
+    .floating-elements {
+        display: none; /* Hide floating elements on mobile */
     }
 }

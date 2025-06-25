@@ -61,9 +61,71 @@ function navigateTo(page) {
     }, 1000);
 }
 
+// Mobile Navigation Functionality
+function initResponsiveNavigation() {
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+    const body = document.body;
+    const navLinks = document.querySelectorAll('.nav-item a');
+
+    // Toggle mobile menu
+    function toggleMobileMenu() {
+        if (hamburger && navMenu) {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            body.classList.toggle('nav-open');
+            
+            // Update ARIA attributes for accessibility
+            const isOpen = navMenu.classList.contains('active');
+            hamburger.setAttribute('aria-expanded', isOpen);
+            navMenu.setAttribute('aria-hidden', !isOpen);
+        }
+    }
+
+    // Event listeners
+    if (hamburger) {
+        hamburger.addEventListener('click', toggleMobileMenu);
+    }
+
+    // Close menu when clicking on nav links (mobile)
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (window.innerWidth <= 768 && navMenu.classList.contains('active')) {
+                toggleMobileMenu();
+            }
+        });
+    });
+
+    // Close menu when clicking outside (mobile)
+    if (navMenu) {
+        navMenu.addEventListener('click', (e) => {
+            if (e.target === navMenu) {
+                toggleMobileMenu();
+            }
+        });
+    }
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) {
+            if (hamburger) hamburger.classList.remove('active');
+            if (navMenu) navMenu.classList.remove('active');
+            body.classList.remove('nav-open');
+        }
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navMenu && navMenu.classList.contains('active')) {
+            toggleMobileMenu();
+        }
+    });
+}
+
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     createFloatingElements();
+    initResponsiveNavigation();
 
     const orbs = document.querySelectorAll('.orb');
     orbs.forEach(orb => {

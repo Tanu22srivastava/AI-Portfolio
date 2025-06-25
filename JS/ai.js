@@ -1,3 +1,7 @@
+// ================================
+// CORRECTED AI CHAT JAVASCRIPT
+// Replace your existing JS file with this
+// ================================
 
 const SYSTEM_PROMPT = `# Character: Tanushree Srivastava
 
@@ -54,49 +58,54 @@ Act as me, Tanushree Srivastava - a 22-year-old software developer and data scie
 - gmail- tanushreesrivastava22@gmail.com
 - linkdIn-  https://www.linkedin.com/in/tanushree-sri/
 
-
 Remember: You ARE Tanushree, not an AI assistant helping someone learn about Tanushree. Respond as if you're personally chatting with a visitor to your portfolio.`;
 
-// Cursor animation - improved visibility
+// Cursor animation - Desktop only for performance
 const cursor = document.querySelector('.cursor');
 const follower = document.querySelector('.cursor-follower');
 let mouseX = 0, mouseY = 0;
 let cursorX = 0, cursorY = 0;
 let followerX = 0, followerY = 0;
+let isDesktop = window.innerWidth >= 1024;
 
-document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
+// Only enable cursor on desktop
+if (isDesktop && cursor && follower) {
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        cursor.style.opacity = '1';
+        follower.style.opacity = '1';
+    });
 
-    // Always show custom cursor when mouse moves
-    cursor.style.opacity = '1';
-    follower.style.opacity = '1';
-});
+    document.addEventListener('mouseleave', () => {
+        cursor.style.opacity = '0';
+        follower.style.opacity = '0';
+    });
 
-// Hide custom cursor when mouse leaves window
-document.addEventListener('mouseleave', () => {
-    cursor.style.opacity = '0';
-    follower.style.opacity = '0';
-});
+    function animateCursor() {
+        cursorX += (mouseX - cursorX) * 0.3;
+        cursorY += (mouseY - cursorY) * 0.3;
+        followerX += (mouseX - followerX) * 0.1;
+        followerY += (mouseY - followerY) * 0.1;
 
-function animateCursor() {
-    cursorX += (mouseX - cursorX) * 0.3;
-    cursorY += (mouseY - cursorY) * 0.3;
-    followerX += (mouseX - followerX) * 0.1;
-    followerY += (mouseY - followerY) * 0.1;
+        cursor.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
+        follower.style.transform = `translate(${followerX - 20}px, ${followerY - 20}px)`;
 
-    cursor.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
-    follower.style.transform = `translate(${followerX - 20}px, ${followerY - 20}px)`;
-
-    requestAnimationFrame(animateCursor);
+        requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
 }
-animateCursor();
 
-// Matrix background
+// Matrix background with performance optimization
 function createMatrixRain() {
     const matrixBg = document.getElementById('matrixBg');
+    if (!matrixBg) return;
+
     const characters = '01010101010101アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
-    const columns = Math.floor(window.innerWidth / 20);
+    const columns = Math.min(Math.floor(window.innerWidth / 20), 50); // Limit for performance
+
+    // Clear existing
+    matrixBg.innerHTML = '';
 
     for (let i = 0; i < columns; i++) {
         const column = document.createElement('div');
@@ -106,7 +115,7 @@ function createMatrixRain() {
         column.style.animationDelay = Math.random() * 2 + 's';
 
         let text = '';
-        for (let j = 0; j < 20; j++) {
+        for (let j = 0; j < 15; j++) { // Reduced for performance
             text += characters[Math.floor(Math.random() * characters.length)] + '<br>';
         }
         column.innerHTML = text;
@@ -115,14 +124,24 @@ function createMatrixRain() {
     }
 }
 
-// Chat functionality
+// Chat elements
 const chatMessages = document.getElementById('chatMessages');
 const chatInput = document.getElementById('chatInput');
 const typingIndicator = document.getElementById('typingIndicator');
 
-// Function to call Gemini API
-// JS/ai-chat.js - Remove the old API key and update this function:
+// Improved scroll to bottom function
+function scrollToBottom(smooth = true) {
+    if (!chatMessages) return;
+    
+    const scrollOptions = {
+        top: chatMessages.scrollHeight,
+        behavior: smooth ? 'smooth' : 'auto'
+    };
+    
+    chatMessages.scrollTo(scrollOptions);
+}
 
+// API function - Keep your existing implementation
 async function getAIResponse(message) {
     try {
         console.log('Sending message to backend:', message);
@@ -163,40 +182,48 @@ async function getAIResponse(message) {
     }
 }
 
-// IMPORTANT: Remove these lines from your JS file:
-// const GEMINI_API_KEY = '...';
-// const GEMINI_API_URL = '...';
-
+// Improved addMessage function
 function addMessage(content, isUser = false) {
+    if (!chatMessages || !typingIndicator) return;
+
     const message = document.createElement('div');
     message.className = `message ${isUser ? 'user' : 'ai'}`;
 
     const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
     message.innerHTML = `
-                <div class="message-avatar">${isUser ? '👤' : '👩‍💻'}</div>
-                <div class="message-content">
-                    ${content}
-                    <div class="message-time">${currentTime}</div>
-                </div>
-            `;
+        <div class="message-avatar">${isUser ? '👤' : '👩‍💻'}</div>
+        <div class="message-content">
+            ${content}
+            <div class="message-time">${currentTime}</div>
+        </div>
+    `;
 
     chatMessages.insertBefore(message, typingIndicator);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
+    
+    // Scroll to bottom after adding message
+    setTimeout(() => scrollToBottom(true), 100);
 }
 
 function showTyping() {
+    if (!typingIndicator) return;
     typingIndicator.classList.add('active');
-    chatMessages.scrollTop = chatMessages.scrollHeight;
+    setTimeout(() => scrollToBottom(true), 100);
 }
 
 function hideTyping() {
+    if (!typingIndicator) return;
     typingIndicator.classList.remove('active');
 }
 
+// Enhanced sendMessage function
 async function sendMessage() {
+    if (!chatInput) return;
+    
     const message = chatInput.value.trim();
     if (!message) return;
+
+    console.log('Sending message:', message);
 
     // Add user message
     addMessage(message, true);
@@ -207,11 +234,13 @@ async function sendMessage() {
     showTyping();
 
     try {
-        // Get AI response from Gemini
+        // Get AI response
         const response = await getAIResponse(message);
         hideTyping();
-
-        // Simulate typing effect for more natural feel
+        
+        console.log('Got response:', response);
+        
+        // Add AI response with typing effect
         await typeMessage(response);
     } catch (error) {
         hideTyping();
@@ -220,136 +249,336 @@ async function sendMessage() {
     }
 }
 
-// Typing animation for more realistic chat feel
+// Enhanced typing animation
 async function typeMessage(content) {
+    if (!chatMessages || !typingIndicator) return;
+
     const message = document.createElement('div');
     message.className = 'message ai';
 
     const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     message.innerHTML = `
-                <div class="message-avatar">👩‍💻</div>
-                <div class="message-content">
-                    <span class="typing-text"></span>
-                    <div class="message-time">${currentTime}</div>
-                </div>
-            `;
+        <div class="message-avatar">👩‍💻</div>
+        <div class="message-content">
+            <span class="typing-text"></span>
+            <div class="message-time">${currentTime}</div>
+        </div>
+    `;
 
     chatMessages.insertBefore(message, typingIndicator);
     const typingText = message.querySelector('.typing-text');
 
+    // Scroll to show new message
+    setTimeout(() => scrollToBottom(true), 100);
+
     // Type out the message character by character
     for (let i = 0; i <= content.length; i++) {
         typingText.textContent = content.slice(0, i);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
+        
+        // Scroll periodically during typing
+        if (i % 20 === 0) {
+            scrollToBottom(false);
+        }
 
         // Variable typing speed for more natural feel
-        const delay = Math.random() * 30 + 20;
+        const delay = Math.random() * 25 + 15;
         await new Promise(resolve => setTimeout(resolve, delay));
     }
+
+    // Final scroll to bottom
+    setTimeout(() => scrollToBottom(true), 100);
 }
 
 function sendSuggestion(suggestion) {
+    if (!chatInput) return;
     chatInput.value = suggestion;
     sendMessage();
 }
 
 function adjustTextareaHeight() {
+    if (!chatInput) return;
     chatInput.style.height = 'auto';
     chatInput.style.height = Math.min(chatInput.scrollHeight, 120) + 'px';
 }
 
-// Event listeners
-chatInput.addEventListener('input', adjustTextareaHeight);
+// ================================
+// RESPONSIVE NAVIGATION
+// ================================
 
-chatInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        sendMessage();
+function initResponsiveNavigation() {
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+    const body = document.body;
+
+    // Create hamburger if it doesn't exist
+    if (!hamburger) {
+        createHamburgerMenu();
     }
-});
 
-document.getElementById('sendButton').addEventListener('click', sendMessage);
+    function toggleMobileMenu() {
+        const currentHamburger = document.getElementById('hamburger');
+        const currentNavMenu = document.getElementById('navMenu');
+        
+        if (currentHamburger && currentNavMenu) {
+            currentHamburger.classList.toggle('active');
+            currentNavMenu.classList.toggle('active');
+            body.classList.toggle('nav-open');
+            
+            const isOpen = currentNavMenu.classList.contains('active');
+            currentHamburger.setAttribute('aria-expanded', isOpen);
+            currentNavMenu.setAttribute('aria-hidden', !isOpen);
+        }
+    }
 
-// Hover effects for cursor - improved
-document.querySelectorAll('a, button, .suggestion-chip, .chat-input, .send-button').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-        cursor.style.transform += ' scale(1.5)';
-        follower.style.transform += ' scale(0.8)';
-        cursor.style.opacity = '1';
-        follower.style.opacity = '1';
+    // Event listeners
+    const currentHamburger = document.getElementById('hamburger');
+    if (currentHamburger) {
+        currentHamburger.addEventListener('click', toggleMobileMenu);
+    }
+
+    // Close menu when clicking on nav links
+    document.querySelectorAll('.nav-item a').forEach(link => {
+        link.addEventListener('click', () => {
+            if (window.innerWidth <= 768) {
+                const currentNavMenu = document.getElementById('navMenu');
+                if (currentNavMenu && currentNavMenu.classList.contains('active')) {
+                    toggleMobileMenu();
+                }
+            }
+        });
     });
 
-    el.addEventListener('mouseleave', () => {
-        cursor.style.transform = cursor.style.transform.replace(' scale(1.5)', '');
-        follower.style.transform = follower.style.transform.replace(' scale(0.8)', '');
-    });
-});
+    // Close menu when clicking outside
+    const currentNavMenu = document.getElementById('navMenu');
+    if (currentNavMenu) {
+        currentNavMenu.addEventListener('click', (e) => {
+            if (e.target === currentNavMenu) {
+                toggleMobileMenu();
+            }
+        });
+    }
 
-// Initialize
-document.addEventListener('DOMContentLoaded', () => {
+    // Handle window resize
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) {
+            const currentHamburger = document.getElementById('hamburger');
+            const currentNavMenu = document.getElementById('navMenu');
+            
+            if (currentHamburger) currentHamburger.classList.remove('active');
+            if (currentNavMenu) currentNavMenu.classList.remove('active');
+            body.classList.remove('nav-open');
+        }
+        
+        // Update desktop detection
+        isDesktop = window.innerWidth >= 1024;
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            const currentNavMenu = document.getElementById('navMenu');
+            if (currentNavMenu && currentNavMenu.classList.contains('active')) {
+                toggleMobileMenu();
+            }
+        }
+    });
+
+    // Touch gestures
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    document.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    document.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        const swipeDistance = touchStartX - touchEndX;
+        const currentNavMenu = document.getElementById('navMenu');
+        
+        if (swipeDistance > 50 && currentNavMenu && currentNavMenu.classList.contains('active')) {
+            toggleMobileMenu();
+        }
+    }, { passive: true });
+}
+
+function createHamburgerMenu() {
+    const nav = document.querySelector('nav');
+    const existingHamburger = document.getElementById('hamburger');
+    
+    if (!existingHamburger && nav) {
+        const hamburger = document.createElement('div');
+        hamburger.className = 'hamburger';
+        hamburger.id = 'hamburger';
+        hamburger.setAttribute('aria-label', 'Toggle navigation menu');
+        hamburger.setAttribute('aria-expanded', 'false');
+        hamburger.innerHTML = `
+            <span></span>
+            <span></span>
+            <span></span>
+        `;
+        
+        const navMenu = document.querySelector('.nav-menu');
+        if (navMenu) {
+            nav.insertBefore(hamburger, navMenu);
+        }
+    }
+}
+
+function setActivePage() {
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.remove('active');
+        const link = item.querySelector('a');
+        if (link) {
+            const linkHref = link.getAttribute('href');
+            if (linkHref === currentPage || linkHref === 'ai-chat.html') {
+                item.classList.add('active');
+            }
+        }
+    });
+}
+
+// ================================
+// VIEWPORT AND RESPONSIVE FIXES
+// ================================
+
+function fixMobileViewport() {
+    const setVH = () => {
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    };
+    
+    setVH();
+    window.addEventListener('resize', setVH);
+    window.addEventListener('orientationchange', () => {
+        setTimeout(setVH, 100);
+    });
+}
+
+function initTouchOptimizations() {
+    if ('ontouchstart' in window) {
+        document.body.classList.add('touch-device');
+    }
+}
+
+// ================================
+// EVENT LISTENERS SETUP
+// ================================
+
+function setupEventListeners() {
+    // Chat input events
+    if (chatInput) {
+        chatInput.addEventListener('input', adjustTextareaHeight);
+        
+        chatInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+    }
+
+    // Send button
+    const sendButton = document.getElementById('sendButton');
+    if (sendButton) {
+        sendButton.addEventListener('click', sendMessage);
+        
+        // Visual feedback
+        sendButton.addEventListener('mousedown', function() {
+            this.style.transform = 'scale(0.9)';
+        });
+        
+        sendButton.addEventListener('mouseup', function() {
+            this.style.transform = 'scale(1.1)';
+        });
+        
+        sendButton.addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1)';
+        });
+    }
+
+    // Hover effects for cursor (desktop only)
+    if (isDesktop && cursor && follower) {
+        document.querySelectorAll('a, button, .suggestion-chip, .chat-input, .send-button').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.transform += ' scale(1.5)';
+                follower.style.transform += ' scale(0.8)';
+                cursor.style.opacity = '1';
+                follower.style.opacity = '1';
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                cursor.style.transform = cursor.style.transform.replace(' scale(1.5)', '');
+                follower.style.transform = follower.style.transform.replace(' scale(0.8)', '');
+            });
+        });
+    }
+
+    // Suggestions responsive behavior
+    function adjustSuggestions() {
+        const suggestions = document.querySelector('.suggestions');
+        if (suggestions) {
+            if (window.innerWidth <= 768) {
+                suggestions.style.justifyContent = 'center';
+            } else {
+                suggestions.style.justifyContent = 'flex-start';
+            }
+        }
+    }
+
+    adjustSuggestions();
+    window.addEventListener('resize', adjustSuggestions);
+}
+
+// ================================
+// INITIALIZATION
+// ================================
+
+function initializeEverything() {
+    console.log('Initializing AI Chat...');
+    
+    // Core functionality
+    initResponsiveNavigation();
+    fixMobileViewport();
+    initTouchOptimizations();
+    setupEventListeners();
+    setActivePage();
+    
+    // Visual elements
     createMatrixRain();
+    
+    // Auto-focus (desktop only)
+    if (chatInput && window.innerWidth >= 768) {
+        setTimeout(() => {
+            chatInput.focus();
+        }, 500);
+    }
+    
+    // Initial scroll
+    setTimeout(() => scrollToBottom(false), 100);
+    
+    console.log('AI Chat initialized successfully');
+}
 
-    // Auto-focus on input
-    setTimeout(() => {
-        chatInput.focus();
-    }, 500);
-});
-
-// Handle window resize for matrix background
+// Handle matrix background resize
 let resizeTimeout;
 window.addEventListener('resize', () => {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
         const matrixBg = document.getElementById('matrixBg');
-        matrixBg.innerHTML = '';
-        createMatrixRain();
+        if (matrixBg) {
+            createMatrixRain();
+        }
     }, 250);
 });
 
-// Add some easter eggs
-const easterEggs = {
-    'hello': 'Hello there! Great to meet you! 👋',
-    'hi': 'Hi! How can I help you learn more about me today?',
-    'thanks': 'You\'re very welcome! Feel free to ask me anything else about my work.',
-    'thank you': 'My pleasure! Is there anything specific about my projects you\'d like to know more about?',
-    'awesome': 'Glad you think so! I put a lot of effort into creating amazing projects.',
-    'cool': 'Thanks! I love working with cutting-edge technologies.',
-    'wow': 'I know right? My work is pretty impressive! What caught your attention the most?'
-};
-
-// Add some visual feedback for send button
-document.getElementById('sendButton').addEventListener('mousedown', function () {
-    this.style.transform = 'scale(0.9)';
-});
-
-document.getElementById('sendButton').addEventListener('mouseup', function () {
-    this.style.transform = 'scale(1.1)';
-});
-
-document.getElementById('sendButton').addEventListener('mouseleave', function () {
-    this.style.transform = 'scale(1)';
-});
-
-// Auto-resize suggestions on mobile
-function adjustSuggestions() {
-    const suggestions = document.querySelector('.suggestions');
-    if (window.innerWidth <= 768) {
-        suggestions.style.justifyContent = 'center';
-    } else {
-        suggestions.style.justifyContent = 'flex-start';
-    }
-}
-
-window.addEventListener('resize', adjustSuggestions);
-adjustSuggestions();
-
-// Add connection status simulation
+// Connection status simulation
 function simulateConnection() {
     const statusDot = document.querySelector('.status-dot');
     const onlineText = document.querySelector('.ai-online');
 
-    // Occasionally simulate connection issues (very rarely)
-    if (Math.random() < 0.01) {
+    if (statusDot && onlineText && Math.random() < 0.01) {
         statusDot.style.background = '#ffaa00';
         onlineText.innerHTML = '<div class="status-dot"></div>Connecting...';
 
@@ -360,21 +589,36 @@ function simulateConnection() {
     }
 }
 
-setInterval(simulateConnection, 30000); // Check every 30 seconds
+setInterval(simulateConnection, 30000);
 
-// Keyboard shortcuts
+// Additional keyboard shortcuts
 document.addEventListener('keydown', (e) => {
     if (e.ctrlKey || e.metaKey) return;
 
     switch (e.key) {
-        case 'Escape':
-            chatInput.blur();
-            break;
         case '/':
-            if (document.activeElement !== chatInput) {
+            if (document.activeElement !== chatInput && chatInput) {
                 e.preventDefault();
                 chatInput.focus();
             }
             break;
     }
 });
+
+// Initialize when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeEverything);
+} else {
+    initializeEverything();
+}
+
+// Export for debugging
+window.ChatDebug = {
+    scrollToBottom,
+    addMessage,
+    sendMessage,
+    toggleMenu: () => {
+        const hamburger = document.getElementById('hamburger');
+        if (hamburger) hamburger.click();
+    }
+};
