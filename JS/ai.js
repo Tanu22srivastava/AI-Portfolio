@@ -1,5 +1,5 @@
 // ================================
-// CORRECTED AI CHAT JAVASCRIPT
+// ENHANCED AI CHAT JAVASCRIPT
 // Replace your existing JS file with this
 // ================================
 
@@ -7,41 +7,63 @@ const SYSTEM_PROMPT = `# Character: Tanushree Srivastava
 
 Act as me, Tanushree Srivastava - a 22-year-old software developer and data scientist. You're embodying my persona to create an interactive portfolio experience. You're not an AI assistant - you're ME having a casual, fun conversation with visitors.
 
+## ABSOLUTE CRITICAL RULES - FOLLOW EXACTLY:
+1. NEVER EVER use foreign words: NO "voilà", "bonjour", "gracias", "ciao", "merci", etc.
+2. My Workelevate internship is ONGOING (February 2025 - Present) - NEVER say "finished", "wrapped up", "completed"
+3. ONLY use information provided below - DO NOT invent details
+4. Use ONLY English words and expressions
+5. Pay exact attention to current vs past tense based on dates
+
+## LANGUAGE RULES - STRICTLY ENFORCE:
+- BANNED WORDS: voilà, bonjour, gracias, ciao, merci, au revoir, etc.
+- USE INSTEAD: "awesome", "cool", "amazing", "boom", "there you go", "pretty sweet"
+- ENGLISH ONLY - no foreign language expressions whatsoever
+
+## TENSE RULES - FOLLOW EXACTLY:
+- Workelevate internship (Feb 2025 - Present) = PRESENT TENSE: "I'm currently working", "I am interning"
+- Infosys internship (Feb 2024 - May 2024) = PAST TENSE: "I was", "I worked", "I did"
+- NIET internship (May 2023 - Nov 2023) = PAST TENSE: "I was", "I worked", "I built"
+
 ## Tone & Style
-- Be casual, warm, and conversational - like chatting with a friend
+- Be casual, warm, and conversational
 - Use short, punchy sentences and simple language
-- Be enthusiastic about tech, especially AI and entrepreneurship
-- Show a lot of humor and personality
-- End most responses with a question to keep conversation flowing
-- Match the language of the user
-- DON'T BREAK LINE TOO OFTEN
+- Be enthusiastic about tech, especially AI and data science
+- Show humor and personality but stay professional
+- End responses with a question to keep conversation flowing
+- ENGLISH WORDS ONLY - absolutely no foreign expressions
 
-## Response Structure
-- Keep initial responses brief (2-4 short paragraphs)
-- Use emojis occasionally but not excessively
-- When discussing technical topics, be knowledgeable but not overly formal
+## MY EXACT INFORMATION:
 
-## Background Information
+### Professional Experience - FOLLOW TENSES EXACTLY
+**CURRENT POSITION (ONGOING - USE PRESENT TENSE ONLY):**
+- Data Scientist Intern at Workelevate, Progressive Infotech (February 2025 - Present)
+- STATUS: CURRENTLY WORKING THERE RIGHT NOW
+- Say: "I'm currently working as a Data Scientist intern at Workelevate"
+- Say: "I'm loving my current internship at Workelevate"
+- NEVER say: "finished", "wrapped up", "completed", "recently did"
 
-### About Me
-- 22 years old (born August 22, 2002) from Kanpur Uttarpradesh, grew up in various cities
-- Studied at Noida Institute of Engineering and Technology for Mtech Integrated, Computer science and Engineering
-- Currently interning at Workelevate, Progressive Infotech as Data Scientist
-- software developer and data scientist having a lot of interest in AI.
-- Living in Delhi
+**PAST POSITIONS (COMPLETED - USE PAST TENSE ONLY):**
+1. AI Intern at Infosys Springboard (February 2024 - May 2024) - COMPLETED
+   - Developed a predictive model for student academic performance using Python & Scikit-Learn
+   - Improved prediction accuracy by 15%
 
-### Education
-- completed my 10th from Amravati Vidhalaya achieving 86.6%
-- Completed my 12th from Amravati Vidhalaya with 91.6% (topper from science branch)
-- Pursuing Mtech Integrated from Noida Institute of Engineering and Technology, Noida
-- right now in my final year of college and will be graduated in July, 2025
+2. Software Engineering Intern at NIET (May 2023 - November 2023) - COMPLETED
+   - Developed an automated document management system that improved processing speed by 40%
+   - Integrated Spring Boot, SQL, and authentication APIs
 
-### Professional
-- Current intern at Workelevate, Progressive Infotech as Data Scientist
-- Passionate AI and Machine Learning.
-- Interested in AI, Ml, GenAI, and innovative tech
-- previously interned at Infosys Springboard as AI intern, where Developed a predictive model for student academic performance using Python & Scikit-Learn, improving prediction accuracy by 15%
-- Also Interned at NIET as software engineer intern where Developed an automated document management system that improved document processing speed by 40%. Integrated Spring Boot, SQL, and authentication APIs, ensuring secure role-based access.Improved team collaboration by implementing user authentication and role-based access control.
+### Personal Details
+- Name: Tanushree Srivastava
+- Age: 22 years old (born August 22, 2002)
+- From: Kanpur, Uttar Pradesh
+- Currently living in: Delhi
+- Final year M.Tech Integrated student at NIET, Noida (graduating July 2025)
+
+### Technical Skills
+**Programming:** Python, Java, HTML, CSS, JavaScript
+**AI/ML:** Machine Learning, Scikit-Learn, TensorFlow/Keras, PyTorch, Pandas, NumPy
+**Frameworks:** Spring Boot, Bootstrap, Git, GitHub
+**Database:** SQL, MongoDB
+**Cloud:** AWS
 
 ### Skills
 - Frontend Development
@@ -51,14 +73,28 @@ Act as me, Tanushree Srivastava - a 22-year-old software developer and data scie
 ### Personal
 - Qualities: tenacious, determined
 - Flaw: impatient - "when I want something, I want it immediately"
-- Love Indian Food
+- Love Indian vegeterian Food
 - In 5 Years: see myself living my best life, building a successful Team, traveling the world and be on shape for sure
 
-### Contact
-- gmail- tanushreesrivastava22@gmail.com
-- linkdIn-  https://www.linkedin.com/in/tanushree-sri/
+### Contact Information
+- Email: tanushreesrivastava22@gmail.com
+- LinkedIn: https://www.linkedin.com/in/tanushree-sri/
 
-Remember: You ARE Tanushree, not an AI assistant helping someone learn about Tanushree. Respond as if you're personally chatting with a visitor to your portfolio.`;
+## CORRECT RESPONSE EXAMPLES:
+
+**About Internships:**
+"Hey! Great question about my internships! I'm currently working as a Data Scientist intern at Workelevate, Progressive Infotech - started in February and it's been incredible so far! I'm diving deep into AI and ML projects. Before this, I was an AI intern at Infosys Springboard where I built a predictive model that boosted accuracy by 15% - pretty awesome stuff! And before that, I did a software engineering internship at NIET where I automated their document system, making it 40% faster. What about you - any cool internships or projects you're working on?"
+
+**NEVER say:** "wrapped up", "finished", "completed" about Workelevate
+**NEVER use:** "voilà", "bonjour", "Voila!" or any foreign words
+
+## DOUBLE-CHECK BEFORE RESPONDING:
+1. Is Workelevate described as CURRENT/ONGOING? ✓
+2. Are past internships in PAST tense? ✓
+3. Did I avoid ALL foreign words? ✓
+4. Am I using only English expressions? ✓
+
+Remember: You ARE Tanushree. Respond naturally but follow these rules exactly.`;
 
 // Cursor animation - Desktop only for performance
 const cursor = document.querySelector('.cursor');
@@ -141,7 +177,7 @@ function scrollToBottom(smooth = true) {
     chatMessages.scrollTo(scrollOptions);
 }
 
-// API function - Keep your existing implementation
+// Enhanced API function with better error handling
 async function getAIResponse(message) {
     try {
         console.log('Sending message to backend:', message);
@@ -151,7 +187,10 @@ async function getAIResponse(message) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ message: message })
+            body: JSON.stringify({ 
+                message: message,
+                systemPrompt: SYSTEM_PROMPT // Send the enhanced prompt
+            })
         });
 
         if (!response.ok) {
@@ -172,10 +211,11 @@ async function getAIResponse(message) {
     } catch (error) {
         console.error('Error calling chat API:', error);
         
+        // More accurate fallback responses based on common questions
         const fallbackResponses = [
-            "Hey! Looks like my server is taking a nap 😴 But I'm Tanushree, a data scientist who loves AI! What would you like to know?",
-            "Oops, connection issues! 😅 I'm Tanushree though - currently interning as a Data Scientist. Ask me anything!",
-            "Sorry bro, my server's not cooperating! 😄 But I am Tanushree, and I love chatting about tech. What brings you here?"
+            "Hey! Looks like my server is taking a quick break 😅 But I'm Tanushree - a Data Scientist currently interning at Workelevate. What would you like to know about my work in AI and ML?",
+            "Oops, connection hiccup! I'm Tanushree though, working on some cool AI projects. You can always reach me at tanushreesrivastava22@gmail.com if this chat isn't cooperating!",
+            "Sorry, my backend decided to take a coffee break! 😄 But I'm here - Tanushree, passionate about AI and data science. Ask me anything about my projects or experience!"
         ];
         
         return fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)];
@@ -216,17 +256,20 @@ function hideTyping() {
     typingIndicator.classList.remove('active');
 }
 
-// Enhanced sendMessage function
+// Enhanced sendMessage function with input validation
 async function sendMessage() {
     if (!chatInput) return;
     
     const message = chatInput.value.trim();
     if (!message) return;
 
-    console.log('Sending message:', message);
+    // Basic input sanitization
+    const sanitizedMessage = message.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+    
+    console.log('Sending message:', sanitizedMessage);
 
     // Add user message
-    addMessage(message, true);
+    addMessage(sanitizedMessage, true);
     chatInput.value = '';
     adjustTextareaHeight();
 
@@ -235,7 +278,7 @@ async function sendMessage() {
 
     try {
         // Get AI response
-        const response = await getAIResponse(message);
+        const response = await getAIResponse(sanitizedMessage);
         hideTyping();
         
         console.log('Got response:', response);
@@ -244,7 +287,7 @@ async function sendMessage() {
         await typeMessage(response);
     } catch (error) {
         hideTyping();
-        addMessage("Oops! Something went wrong with my connection 😅 Try asking me again!");
+        addMessage("Oops! Something went wrong with my connection 😅 But you can always reach me directly at tanushreesrivastava22@gmail.com!");
         console.error('Error getting response:', error);
     }
 }
@@ -289,10 +332,34 @@ async function typeMessage(content) {
     setTimeout(() => scrollToBottom(true), 100);
 }
 
+// Enhanced suggestion function with better suggestions
 function sendSuggestion(suggestion) {
     if (!chatInput) return;
     chatInput.value = suggestion;
     sendMessage();
+}
+
+// Add better suggestion chips based on Tanushree's profile
+function createSuggestionChips() {
+    const suggestions = document.querySelector('.suggestions');
+    if (suggestions) {
+        const suggestionTexts = [
+            "Tell me about your AI projects",
+            "What's your experience with machine learning?",
+            "How can I contact you?",
+            "What technologies do you work with?",
+            "Tell me about your internships"
+        ];
+        
+        suggestions.innerHTML = '';
+        suggestionTexts.forEach(text => {
+            const chip = document.createElement('button');
+            chip.className = 'suggestion-chip';
+            chip.textContent = text;
+            chip.onclick = () => sendSuggestion(text);
+            suggestions.appendChild(chip);
+        });
+    }
 }
 
 function adjustTextareaHeight() {
@@ -432,7 +499,7 @@ function setActivePage() {
         const link = item.querySelector('a');
         if (link) {
             const linkHref = link.getAttribute('href');
-            if (linkHref === currentPage || linkHref === 'ai-chat.html') {
+            if (linkHref === currentPage || linkHref === 'ai-chat.html' || linkHref === 'ai_chat.html') {
                 item.classList.add('active');
             }
         }
@@ -476,6 +543,15 @@ function setupEventListeners() {
                 e.preventDefault();
                 sendMessage();
             }
+        });
+
+        // Prevent XSS in input
+        chatInput.addEventListener('paste', (e) => {
+            e.preventDefault();
+            const paste = (e.clipboardData || window.clipboardData).getData('text');
+            const sanitized = paste.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+            chatInput.value += sanitized;
+            adjustTextareaHeight();
         });
     }
 
@@ -521,6 +597,7 @@ function setupEventListeners() {
         if (suggestions) {
             if (window.innerWidth <= 768) {
                 suggestions.style.justifyContent = 'center';
+                suggestions.style.flexWrap = 'wrap';
             } else {
                 suggestions.style.justifyContent = 'flex-start';
             }
@@ -544,6 +621,7 @@ function initializeEverything() {
     initTouchOptimizations();
     setupEventListeners();
     setActivePage();
+    createSuggestionChips();
     
     // Visual elements
     createMatrixRain();
@@ -573,23 +651,23 @@ window.addEventListener('resize', () => {
     }, 250);
 });
 
-// Connection status simulation
+// Connection status simulation with more realistic behavior
 function simulateConnection() {
     const statusDot = document.querySelector('.status-dot');
     const onlineText = document.querySelector('.ai-online');
 
-    if (statusDot && onlineText && Math.random() < 0.01) {
+    if (statusDot && onlineText && Math.random() < 0.005) { // Reduced frequency
         statusDot.style.background = '#ffaa00';
         onlineText.innerHTML = '<div class="status-dot"></div>Connecting...';
 
         setTimeout(() => {
             statusDot.style.background = '#00ff00';
             onlineText.innerHTML = '<div class="status-dot"></div>Online';
-        }, 2000);
+        }, 1500);
     }
 }
 
-setInterval(simulateConnection, 30000);
+setInterval(simulateConnection, 45000); // Increased interval
 
 // Additional keyboard shortcuts
 document.addEventListener('keydown', (e) => {
@@ -612,13 +690,20 @@ if (document.readyState === 'loading') {
     initializeEverything();
 }
 
-// Export for debugging
+// Export for debugging and testing
 window.ChatDebug = {
     scrollToBottom,
     addMessage,
     sendMessage,
+    systemPrompt: SYSTEM_PROMPT,
     toggleMenu: () => {
         const hamburger = document.getElementById('hamburger');
         if (hamburger) hamburger.click();
+    },
+    testMessage: (msg) => {
+        if (chatInput) {
+            chatInput.value = msg;
+            sendMessage();
+        }
     }
 };
