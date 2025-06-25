@@ -22,10 +22,12 @@ function animateCursor() {
 }
 animateCursor();
 
-// Neural network background generation
+// Neural network background generation (optimized for mobile)
 function createNeuralNetwork() {
     const neuralBg = document.getElementById('neuralBg');
-    const nodeCount = 50;
+    if (!neuralBg || window.innerWidth <= 767) return; // Skip on mobile
+    
+    const nodeCount = window.innerWidth > 1024 ? 50 : 30;
     const nodes = [];
 
     // Create nodes
@@ -43,7 +45,8 @@ function createNeuralNetwork() {
         });
     }
 
-    // Create connections
+    // Create connections (fewer on smaller screens)
+    const maxConnections = window.innerWidth > 1024 ? 25 : 15;
     nodes.forEach((node, index) => {
         const nearbyNodes = nodes.filter((otherNode, otherIndex) => {
             if (index === otherIndex) return false;
@@ -52,7 +55,7 @@ function createNeuralNetwork() {
             const dy = Math.abs(node.y - otherNode.y);
             const distance = Math.sqrt(dx * dx + dy * dy);
 
-            return distance < 25; // Connect nodes within 25% distance
+            return distance < maxConnections;
         });
 
         nearbyNodes.forEach(nearbyNode => {
@@ -75,55 +78,157 @@ function createNeuralNetwork() {
     });
 }
 
-// Skill point interactions
+// Mobile Navigation Functionality
+function initResponsiveNavigation() {
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+    const body = document.body;
+    const navLinks = document.querySelectorAll('.nav-item a');
+
+    function toggleMobileMenu() {
+        if (hamburger && navMenu) {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            body.classList.toggle('nav-open');
+            
+            const isOpen = navMenu.classList.contains('active');
+            hamburger.setAttribute('aria-expanded', isOpen);
+            navMenu.setAttribute('aria-hidden', !isOpen);
+        }
+    }
+
+    if (hamburger) {
+        hamburger.addEventListener('click', toggleMobileMenu);
+    }
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (window.innerWidth <= 768 && navMenu.classList.contains('active')) {
+                toggleMobileMenu();
+            }
+        });
+    });
+
+    if (navMenu) {
+        navMenu.addEventListener('click', (e) => {
+            if (e.target === navMenu) {
+                toggleMobileMenu();
+            }
+        });
+    }
+
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) {
+            if (hamburger) hamburger.classList.remove('active');
+            if (navMenu) navMenu.classList.remove('active');
+            body.classList.remove('nav-open');
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navMenu && navMenu.classList.contains('active')) {
+            toggleMobileMenu();
+        }
+    });
+}
+
+// Skill point interactions (works on all devices now)
 document.querySelectorAll('.skill-point').forEach(point => {
-    point.addEventListener('mouseenter', function () {
-        const skill = this.getAttribute('data-skill');
-        const level = this.getAttribute('data-level');
+    // For touch devices, use touch events
+    if ('ontouchstart' in window) {
+        point.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            showSkillTooltip(this, e.touches[0]);
+        });
+        
+        point.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            hideSkillTooltip();
+        });
+    } else {
+        // For desktop, use mouse events
+        point.addEventListener('mouseenter', function() {
+            showSkillTooltip(this);
+        });
+        
+        point.addEventListener('mouseleave', function() {
+            hideSkillTooltip();
+        });
+    }
+});
 
-        // Create tooltip
-        const tooltip = document.createElement('div');
-        tooltip.style.position = 'absolute';
-        tooltip.style.background = 'rgba(0, 0, 0, 0.9)';
-        tooltip.style.color = '#00ffff';
-        tooltip.style.padding = '10px 15px';
-        tooltip.style.borderRadius = '10px';
-        tooltip.style.fontSize = '14px';
-        tooltip.style.pointerEvents = 'none';
-        tooltip.style.zIndex = '1000';
-        tooltip.style.border = '1px solid rgba(0, 255, 255, 0.3)';
-        tooltip.textContent = `${skill}: ${level}%`;
+let currentTooltip = null;
 
-        document.body.appendChild(tooltip);
+function showSkillTooltip(element, touch = null) {
+    const skill = element.getAttribute('data-skill');
+    const level = element.getAttribute('data-level');
 
+    // Remove existing tooltip
+    hideSkillTooltip();
+
+    const tooltip = document.createElement('div');
+    tooltip.style.cssText = `
+        position: fixed;
+        background: rgba(0, 0, 0, 0.95);
+        color: #00ffff;
+        padding: 12px 16px;
+        border-radius: 12px;
+        font-size: ${window.innerWidth <= 768 ? '16px' : '14px'};
+        font-weight: 600;
+        pointer-events: none;
+        z-index: 1000;
+        border: 1px solid rgba(0, 255, 255, 0.3);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 10px 25px rgba(0, 255, 255, 0.2);
+        text-align: center;
+        white-space: nowrap;
+    `;
+    tooltip.textContent = `${skill}: ${level}%`;
+    document.body.appendChild(tooltip);
+    currentTooltip = tooltip;
+
+    if (touch) {
+        // Position for touch devices
+        tooltip.style.left = touch.clientX - tooltip.offsetWidth / 2 + 'px';
+        tooltip.style.top = touch.clientY - tooltip.offsetHeight - 20 + 'px';
+    } else {
+        // Position for mouse devices
         const updateTooltipPosition = (e) => {
-            tooltip.style.left = e.clientX + 15 + 'px';
-            tooltip.style.top = e.clientY - 35 + 'px';
+            if (currentTooltip) {
+                currentTooltip.style.left = e.clientX - currentTooltip.offsetWidth / 2 + 'px';
+                currentTooltip.style.top = e.clientY - currentTooltip.offsetHeight - 15 + 'px';
+            }
         };
 
         document.addEventListener('mousemove', updateTooltipPosition);
-
-        this.addEventListener('mouseleave', function () {
+        
+        element.addEventListener('mouseleave', function() {
             document.removeEventListener('mousemove', updateTooltipPosition);
-            if (tooltip.parentNode) {
-                tooltip.parentNode.removeChild(tooltip);
-            }
         }, { once: true });
-    });
-});
+    }
+}
 
-// Hover effects for cursor
-document.querySelectorAll('a, button, .skill-point, .skill-item, .cert-card').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-        cursor.style.transform += ' scale(1.5)';
-        follower.style.transform += ' scale(0.8)';
-    });
+function hideSkillTooltip() {
+    if (currentTooltip && currentTooltip.parentNode) {
+        currentTooltip.parentNode.removeChild(currentTooltip);
+        currentTooltip = null;
+    }
+}
 
-    el.addEventListener('mouseleave', () => {
-        cursor.style.transform = cursor.style.transform.replace(' scale(1.5)', '');
-        follower.style.transform = follower.style.transform.replace(' scale(0.8)', '');
+// Hover effects for cursor (desktop only)
+if (window.innerWidth > 1023) {
+    document.querySelectorAll('a, button, .skill-point, .skill-item, .cert-card').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursor.style.transform += ' scale(1.5)';
+            follower.style.transform += ' scale(0.8)';
+        });
+
+        el.addEventListener('mouseleave', () => {
+            cursor.style.transform = cursor.style.transform.replace(' scale(1.5)', '');
+            follower.style.transform = follower.style.transform.replace(' scale(0.8)', '');
+        });
     });
-});
+}
 
 // Scroll animations
 const observerOptions = {
@@ -139,7 +244,7 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Observe skill categories and timeline items
+// Observe elements for animations
 document.querySelectorAll('.skill-category, .timeline-item, .cert-card').forEach(el => {
     observer.observe(el);
 });
@@ -162,407 +267,90 @@ document.querySelectorAll('.skill-item').forEach(item => {
     skillObserver.observe(item);
 });
 
-// Add keyframe animation for skill dots
+// Add keyframe animations
 const style = document.createElement('style');
 style.textContent = `
-            @keyframes skillDotPop {
-                0% { transform: scale(0); opacity: 0; }
-                50% { transform: scale(1.3); }
-                100% { transform: scale(1); opacity: 1; }
-            }
-            
-            @keyframes fadeInUp {
-                from {
-                    opacity: 0;
-                    transform: translateY(30px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-        `;
+    @keyframes skillDotPop {
+        0% { transform: scale(0); opacity: 0; }
+        50% { transform: scale(1.3); }
+        100% { transform: scale(1); opacity: 1; }
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+`;
 document.head.appendChild(style);
 
-// Initialize neural network
+// Interactive radar chart (works on all devices)
+const radarChart = document.querySelector('.radar-chart');
+if (radarChart) {
+    if (window.innerWidth > 768) {
+        // Desktop mouse interaction
+        radarChart.addEventListener('mousemove', (e) => {
+            const rect = radarChart.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            const mouseX = e.clientX - centerX;
+            const mouseY = e.clientY - centerY;
+
+            const rotationX = (mouseY / rect.height) * 8;
+            const rotationY = (mouseX / rect.width) * 8;
+
+            radarChart.style.transform = `perspective(1000px) rotateX(${-rotationX}deg) rotateY(${rotationY}deg)`;
+        });
+
+        radarChart.addEventListener('mouseleave', () => {
+            radarChart.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+        });
+    } else {
+        // Mobile touch interaction - subtle pulsing animation
+        radarChart.style.animation = 'radarPulse 4s ease-in-out infinite';
+        
+        // Add pulsing animation for mobile
+        const pulseStyle = document.createElement('style');
+        pulseStyle.textContent = `
+            @keyframes radarPulse {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.02); }
+            }
+        `;
+        document.head.appendChild(pulseStyle);
+    }
+}
+
+// Initialize everything
 document.addEventListener('DOMContentLoaded', () => {
     createNeuralNetwork();
-});
-
-// Interactive radar chart
-const radarChart = document.querySelector('.radar-chart');
-radarChart.addEventListener('mousemove', (e) => {
-    const rect = radarChart.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    const mouseX = e.clientX - centerX;
-    const mouseY = e.clientY - centerY;
-
-    // Subtle rotation based on mouse position
-    const rotationX = (mouseY / rect.height) * 10;
-    const rotationY = (mouseX / rect.width) * 10;
-
-    radarChart.style.transform = `perspective(1000px) rotateX(${-rotationX}deg) rotateY(${rotationY}deg)`;
-});
-
-radarChart.addEventListener('mouseleave', () => {
-    radarChart.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
-});
-
-// Keyboard shortcuts for navigation
-document.addEventListener('keydown', (e) => {
-    if (e.ctrlKey || e.metaKey) return;
-
-    switch (e.key) {
-        case '1':
-            window.location.href = 'index.html';
-            break;
-        case '2':
-            window.location.href = 'about.html';
-            break;
-        case '3':
-            window.location.href = 'projects.html';
-            break;
-        case '4':
-            // Already on skills page
-            break;
-        case '5':
-            window.location.href = 'ai-chat.html';
-            break;
-        case '6':
-            window.location.href = 'contact.html';
-            break;
-    }
-});
-
-// ================================
-// RESPONSIVE NAVIGATION JAVASCRIPT
-// Add this to ALL your JS files
-// ================================
-
-// Mobile Navigation Functionality
-function initResponsiveNavigation() {
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('navMenu');
-    const body = document.body;
-    const navLinks = document.querySelectorAll('.nav-item a');
-
-    // Create hamburger if it doesn't exist
-    if (!hamburger && window.innerWidth <= 768) {
-        createHamburgerMenu();
-    }
-
-    // Toggle mobile menu
-    function toggleMobileMenu() {
-        if (hamburger && navMenu) {
-            hamburger.classList.toggle('active');
-            navMenu.classList.toggle('active');
-            body.classList.toggle('nav-open');
-            
-            // Update ARIA attributes for accessibility
-            const isOpen = navMenu.classList.contains('active');
-            hamburger.setAttribute('aria-expanded', isOpen);
-            navMenu.setAttribute('aria-hidden', !isOpen);
-        }
-    }
-
-    // Event listeners
-    if (hamburger) {
-        hamburger.addEventListener('click', toggleMobileMenu);
-    }
-
-    // Close menu when clicking on nav links (mobile)
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            if (window.innerWidth <= 768 && navMenu.classList.contains('active')) {
-                toggleMobileMenu();
-            }
-        });
-    });
-
-    // Close menu when clicking outside (mobile)
-    if (navMenu) {
-        navMenu.addEventListener('click', (e) => {
-            if (e.target === navMenu) {
-                toggleMobileMenu();
-            }
-        });
-    }
-
-    // Handle window resize
-    window.addEventListener('resize', () => {
-        if (window.innerWidth > 768) {
-            if (hamburger) hamburger.classList.remove('active');
-            if (navMenu) navMenu.classList.remove('active');
-            body.classList.remove('nav-open');
-        }
-    });
-
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && navMenu && navMenu.classList.contains('active')) {
-            toggleMobileMenu();
-        }
-    });
-
-    // Touch gestures for better mobile UX
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    document.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
-    }, { passive: true });
-
-    document.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-    }, { passive: true });
-
-    function handleSwipe() {
-        const swipeDistance = touchStartX - touchEndX;
-        if (swipeDistance > 50 && navMenu && navMenu.classList.contains('active')) {
-            // Swipe left - close menu
-            toggleMobileMenu();
-        }
-    }
-
-    // Set active page
-    setActivePage();
-}
-
-// Create hamburger menu dynamically if not present
-function createHamburgerMenu() {
-    const nav = document.querySelector('nav');
-    const existingHamburger = document.getElementById('hamburger');
-    
-    if (!existingHamburger && nav) {
-        const hamburger = document.createElement('div');
-        hamburger.className = 'hamburger';
-        hamburger.id = 'hamburger';
-        hamburger.setAttribute('aria-label', 'Toggle navigation menu');
-        hamburger.setAttribute('aria-expanded', 'false');
-        hamburger.innerHTML = `
-            <span></span>
-            <span></span>
-            <span></span>
-        `;
-        
-        // Insert before nav menu
-        const navMenu = document.querySelector('.nav-menu');
-        if (navMenu) {
-            nav.insertBefore(hamburger, navMenu);
-        }
-    }
-}
-
-// Set active page based on current URL
-function setActivePage() {
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-    const navItems = document.querySelectorAll('.nav-item');
-    
-    navItems.forEach(item => {
-        item.classList.remove('active');
-        const link = item.querySelector('a');
-        if (link) {
-            const linkHref = link.getAttribute('href');
-            if (linkHref === currentPage || 
-                (currentPage === '' && linkHref === 'index.html') ||
-                (currentPage === 'index.html' && linkHref === '/')) {
-                item.classList.add('active');
-            }
-        }
-    });
-}
-
-// Smooth scroll for anchor links
-function initSmoothScroll() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                const navHeight = document.querySelector('nav').offsetHeight;
-                const targetPosition = target.offsetTop - navHeight - 20;
-                
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-}
-
-// Responsive font sizing
-function initResponsiveFontSizing() {
-    function adjustFontSizes() {
-        const screenWidth = window.innerWidth;
-        const root = document.documentElement;
-        
-        if (screenWidth < 480) {
-            root.style.fontSize = '14px';
-        } else if (screenWidth < 768) {
-            root.style.fontSize = '15px';
-        } else if (screenWidth < 1024) {
-            root.style.fontSize = '16px';
-        } else {
-            root.style.fontSize = '16px';
-        }
-    }
-    
-    adjustFontSizes();
-    window.addEventListener('resize', adjustFontSizes);
-}
-
-// Optimize for touch devices
-function initTouchOptimizations() {
-    if ('ontouchstart' in window) {
-        document.body.classList.add('touch-device');
-        
-        // Improve touch targets
-        const touchTargets = document.querySelectorAll('button, a, .clickable');
-        touchTargets.forEach(target => {
-            if (target.offsetHeight < 44) {
-                target.style.minHeight = '44px';
-                target.style.display = 'flex';
-                target.style.alignItems = 'center';
-                target.style.justifyContent = 'center';
-            }
-        });
-    }
-}
-
-// Prevent zoom on input focus (iOS)
-function preventIOSZoom() {
-    const inputs = document.querySelectorAll('input, textarea, select');
-    inputs.forEach(input => {
-        if (input.style.fontSize < '16px') {
-            input.style.fontSize = '16px';
-        }
-    });
-}
-
-// Responsive image loading
-function initResponsiveImages() {
-    const images = document.querySelectorAll('img[data-src]');
-    
-    if ('IntersectionObserver' in window) {
-        const imageObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    img.src = img.dataset.src;
-                    img.classList.remove('lazy');
-                    imageObserver.unobserve(img);
-                }
-            });
-        });
-        
-        images.forEach(img => imageObserver.observe(img));
-    } else {
-        // Fallback for older browsers
-        images.forEach(img => {
-            img.src = img.dataset.src;
-        });
-    }
-}
-
-// Handle orientation change
-function handleOrientationChange() {
-    window.addEventListener('orientationchange', () => {
-        // Close mobile menu on orientation change
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('navMenu');
-        const body = document.body;
-        
-        if (hamburger && hamburger.classList.contains('active')) {
-            hamburger.classList.remove('active');
-            navMenu.classList.remove('active');
-            body.classList.remove('nav-open');
-        }
-        
-        // Recalculate viewport height
-        setTimeout(() => {
-            const vh = window.innerHeight * 0.01;
-            document.documentElement.style.setProperty('--vh', `${vh}px`);
-        }, 100);
-    });
-}
-
-// Fix viewport height on mobile
-function fixMobileViewport() {
-    const vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-    
-    window.addEventListener('resize', () => {
-        const vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
-    });
-}
-
-// Initialize all responsive features
-function initAllResponsiveFeatures() {
     initResponsiveNavigation();
-    initSmoothScroll();
-    initResponsiveFontSizing();
-    initTouchOptimizations();
-    preventIOSZoom();
-    initResponsiveImages();
-    handleOrientationChange();
-    fixMobileViewport();
-    
-    // Add loaded class for CSS animations
-    document.body.classList.add('loaded');
-}
+});
 
-// Performance optimized initialization
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initAllResponsiveFeatures);
-} else {
-    initAllResponsiveFeatures();
-}
-
-// Export functions for use in other scripts
-window.ResponsiveNav = {
-    init: initAllResponsiveFeatures,
-    toggleMenu: () => {
-        const hamburger = document.getElementById('hamburger');
-        if (hamburger) hamburger.click();
-    },
-    setActivePage: setActivePage
-};
-
-// Utility functions for responsive behavior
-const ResponsiveUtils = {
-    isMobile: () => window.innerWidth <= 768,
-    isTablet: () => window.innerWidth > 768 && window.innerWidth <= 1024,
-    isDesktop: () => window.innerWidth > 1024,
-    
-    debounce: (func, wait) => {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    },
-    
-    throttle: (func, limit) => {
-        let inThrottle;
-        return function() {
-            const args = arguments;
-            const context = this;
-            if (!inThrottle) {
-                func.apply(context, args);
-                inThrottle = true;
-                setTimeout(() => inThrottle = false, limit);
-            }
-        };
+// Handle window resize for neural network and radar chart
+window.addEventListener('resize', () => {
+    const neuralBg = document.getElementById('neuralBg');
+    if (neuralBg && window.innerWidth <= 767) {
+        neuralBg.innerHTML = ''; // Clear neural network on mobile for performance
+    } else if (neuralBg && window.innerWidth > 767 && !neuralBg.children.length) {
+        createNeuralNetwork(); // Recreate on desktop
     }
-};
-
-// Add to global scope
-window.ResponsiveUtils = ResponsiveUtils;
+    
+    // Re-initialize radar chart interactions on resize
+    const radarChart = document.querySelector('.radar-chart');
+    if (radarChart) {
+        // Remove existing styles
+        radarChart.style.transform = '';
+        radarChart.style.animation = '';
+        
+        // Re-apply appropriate interaction based on screen size
+        if (window.innerWidth <= 768) {
+            radarChart.style.animation = 'radarPulse 4s ease-in-out infinite';
+        }
+    }
+});
