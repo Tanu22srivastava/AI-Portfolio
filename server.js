@@ -138,8 +138,10 @@ function getProjectBriefsText() {
 
 function getProjectDetailByName(name) {
   if (!name || typeof name !== 'string') return undefined;
+  if (!projectsData || typeof projectsData !== 'object') return undefined;
+  
   const lower = name.toLowerCase();
-  return Object.values(projectsData).find(p => p.title.toLowerCase().includes(lower));
+  return Object.values(projectsData).find(p => p && p.title && p.title.toLowerCase().includes(lower));
 }
 
 // Chat API endpoint

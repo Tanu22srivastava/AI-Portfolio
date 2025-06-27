@@ -53,7 +53,7 @@ const projectsData = {
         description: 'The IT Chatbot is a versatile, AI-powered assistant designed to handle IT-related queries efficiently. It leverages advanced natural language processing (NLP) models like BERT and Gemini API to detect user intents and provide quick responses. Not only can it create service tickets on platforms like ServiceNow and Jira, but it also allows for seamless application management, including installation, uninstallation, and updates, all through simple user prompts.',
         features: [
             'Uses AI models like BERT to accurately detect user intent and classify IT queries.',
-            'Automatically creates and manages service tickets on ServiceNow and Jira based on the users request.',
+            'Automatically creates and manages service tickets on ServiceNow and Jira based on the user\'s request.',
             'Installs, uninstalls, and updates applications through text-based commands, making system management more efficient.',
             'Provides immediate responses to IT-related queries, reducing downtime and enhancing productivity.',
             'Seamlessly integrates with ServiceNow and Jira, automating ticketing workflows and improving issue resolution speed.'
@@ -78,4 +78,4 @@ const projectsData = {
     }
 };
 
-export default projectsData; 
+module.exports = projectsData; 
