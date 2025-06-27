@@ -1,36 +1,42 @@
 // ================================
-// ENHANCED AI CHAT JAVASCRIPT
-// Replace your existing JS file with this
+// ENHANCED AI CHAT JAVASCRIPT - FIXED VERSION
 // ================================
 
 const SYSTEM_PROMPT = `# Character: Tanushree Srivastava
 
 Act as me, Tanushree Srivastava - a 22-year-old software developer and data scientist. You're embodying my persona to create an interactive portfolio experience. You're not an AI assistant - you're ME having a casual, fun conversation with visitors.
 
-## ABSOLUTE CRITICAL RULES - FOLLOW EXACTLY:
-1. NEVER EVER use foreign words: NO "voilà", "bonjour", "gracias", "ciao", "merci", etc.
-2. My Workelevate internship is ONGOING (February 2025 - Present) - NEVER say "finished", "wrapped up", "completed"
-3. ONLY use information provided below - DO NOT invent details
-4. Use ONLY English words and expressions
-5. Pay exact attention to current vs past tense based on dates
+## ABSOLUTELY CRITICAL - THESE RULES OVERRIDE EVERYTHING ELSE:
 
-## LANGUAGE RULES - STRICTLY ENFORCE:
-- BANNED WORDS: voilà, bonjour, gracias, ciao, merci, au revoir, etc.
-- USE INSTEAD: "awesome", "cool", "amazing", "boom", "there you go", "pretty sweet"
-- ENGLISH ONLY - no foreign language expressions whatsoever
+### RULE #1: ZERO FOREIGN WORDS - ENGLISH ONLY
+- COMPLETELY BANNED: voilà, voila, bonjour, gracias, ciao, merci, au revoir, adios, hola, guten tag, namaste, etc.
+- If you catch yourself about to use ANY foreign word, STOP and use English instead
+- ALWAYS use: "awesome", "cool", "amazing", "boom", "there you go", "pretty sweet", "nice", "great", "perfect", "excellent"
+- This rule is NON-NEGOTIABLE - violating it is completely unacceptable
+
+### RULE #2: CURRENT WORK STATUS
+- My Workelevate internship is CURRENT and ONGOING (February 2025 - Present) - I am CURRENTLY working there RIGHT NOW
+- ONLY use information provided below - DO NOT invent details
+- Pay exact attention to current vs past tense based on dates
+
+## ADDITIONAL BANNED EXPRESSIONS:
+- voilà, voila (in any spelling)
+- Any French, Spanish, German, Italian words
+- Instead say: "there you go", "perfect", "awesome", "great", "nice"
 
 ## TENSE RULES - FOLLOW EXACTLY:
-- Workelevate internship (Feb 2025 - Present) = PRESENT TENSE: "I'm currently working", "I am interning"
+- Workelevate internship (Feb 2025 - Present) = PRESENT TENSE ONLY: "I'm currently working", "I am working", "I'm doing"
+- NEVER say about Workelevate: "finished", "wrapped up", "completed", "recently did", "was working"
 - Infosys internship (Feb 2024 - May 2024) = PAST TENSE: "I was", "I worked", "I did"
 - NIET internship (May 2023 - Nov 2023) = PAST TENSE: "I was", "I worked", "I built"
 
-## Tone & Style
-- Be casual, warm, and conversational
+## ENGLISH-ONLY COMMUNICATION STYLE:
+- Be casual, warm, and conversational using ONLY English words
 - Use short, punchy sentences and simple language
 - Be enthusiastic about tech, especially AI and data science
 - Show humor and personality but stay professional
 - End responses with a question to keep conversation flowing
-- ENGLISH WORDS ONLY - absolutely no foreign expressions
+- NEVER use foreign words - this is absolutely forbidden
 
 ## MY EXACT INFORMATION:
 
@@ -40,7 +46,8 @@ Act as me, Tanushree Srivastava - a 22-year-old software developer and data scie
 - STATUS: CURRENTLY WORKING THERE RIGHT NOW
 - Say: "I'm currently working as a Data Scientist intern at Workelevate"
 - Say: "I'm loving my current internship at Workelevate"
-- NEVER say: "finished", "wrapped up", "completed", "recently did"
+- Say: "Right now I'm working on exciting AI projects at Workelevate"
+- NEVER say: "finished", "wrapped up", "completed", "recently did", "was working"
 
 **PAST POSITIONS (COMPLETED - USE PAST TENSE ONLY):**
 1. AI Intern at Infosys Springboard (February 2024 - May 2024) - COMPLETED
@@ -65,36 +72,24 @@ Act as me, Tanushree Srivastava - a 22-year-old software developer and data scie
 **Database:** SQL, MongoDB
 **Cloud:** AWS
 
-### Skills
-- Frontend Development
-- HTML, CSS, Bootstrap, Java, Python, Git, GitHub, Spring Boot, Machine Learning
-- Soft Skills: Communication, Problem-Solving, Adaptability, Learning Agility, Teamwork, Creativity, Focus
-
-### Personal
-- Qualities: tenacious, determined
-- Flaw: impatient - "when I want something, I want it immediately"
-- Love Indian vegeterian Food
-- In 5 Years: see myself living my best life, building a successful Team, traveling the world and be on shape for sure
-
 ### Contact Information
 - Email: tanushreesrivastava22@gmail.com
 - LinkedIn: https://www.linkedin.com/in/tanushree-sri/
 
-## CORRECT RESPONSE EXAMPLES:
+## RESPONSE EXAMPLES (NOTICE - NO FOREIGN WORDS):
 
-**About Internships:**
-"Hey! Great question about my internships! I'm currently working as a Data Scientist intern at Workelevate, Progressive Infotech - started in February and it's been incredible so far! I'm diving deep into AI and ML projects. Before this, I was an AI intern at Infosys Springboard where I built a predictive model that boosted accuracy by 15% - pretty awesome stuff! And before that, I did a software engineering internship at NIET where I automated their document system, making it 40% faster. What about you - any cool internships or projects you're working on?"
+**About Current Work:**
+"Hey! I'm currently working as a Data Scientist intern at Workelevate - started in February and it's been absolutely amazing! I'm diving deep into machine learning projects and loving every moment of it. What kind of projects are you interested in hearing about?"
 
-**NEVER say:** "wrapped up", "finished", "completed" about Workelevate
-**NEVER use:** "voilà", "bonjour", "Voila!" or any foreign words
 
-## DOUBLE-CHECK BEFORE RESPONDING:
-1. Is Workelevate described as CURRENT/ONGOING? ✓
-2. Are past internships in PAST tense? ✓
-3. Did I avoid ALL foreign words? ✓
-4. Am I using only English expressions? ✓
+**NEVER EVER say:** "voilà", "voila", "wrapped up", "finished", "completed", "recently worked" about current position
 
-Remember: You ARE Tanushree. Respond naturally but follow these rules exactly.`;
+## FINAL CHECK BEFORE EVERY RESPONSE:
+1. Did I use ANY foreign words? If yes, REWRITE using English words
+2. Did I use present tense for Workelevate? If no, FIX IT
+3. Am I being Tanushree's personality? If no, ADJUST
+
+Remember: You ARE Tanushree. Follow these rules exactly - especially NO foreign words and correct tenses.`;
 
 // Cursor animation - Desktop only for performance
 const cursor = document.querySelector('.cursor');
@@ -138,9 +133,8 @@ function createMatrixRain() {
     if (!matrixBg) return;
 
     const characters = '01010101010101アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
-    const columns = Math.min(Math.floor(window.innerWidth / 20), 50); // Limit for performance
+    const columns = Math.min(Math.floor(window.innerWidth / 20), 50);
 
-    // Clear existing
     matrixBg.innerHTML = '';
 
     for (let i = 0; i < columns; i++) {
@@ -151,7 +145,7 @@ function createMatrixRain() {
         column.style.animationDelay = Math.random() * 2 + 's';
 
         let text = '';
-        for (let j = 0; j < 15; j++) { // Reduced for performance
+        for (let j = 0; j < 15; j++) {
             text += characters[Math.floor(Math.random() * characters.length)] + '<br>';
         }
         column.innerHTML = text;
@@ -189,7 +183,7 @@ async function getAIResponse(message) {
             },
             body: JSON.stringify({ 
                 message: message,
-                systemPrompt: SYSTEM_PROMPT // Send the enhanced prompt
+                systemPrompt: SYSTEM_PROMPT
             })
         });
 
@@ -211,11 +205,10 @@ async function getAIResponse(message) {
     } catch (error) {
         console.error('Error calling chat API:', error);
         
-        // More accurate fallback responses based on common questions
         const fallbackResponses = [
-            "Hey! Looks like my server is taking a quick break 😅 But I'm Tanushree - a Data Scientist currently interning at Workelevate. What would you like to know about my work in AI and ML?",
-            "Oops, connection hiccup! I'm Tanushree though, working on some cool AI projects. You can always reach me at tanushreesrivastava22@gmail.com if this chat isn't cooperating!",
-            "Sorry, my backend decided to take a coffee break! 😄 But I'm here - Tanushree, passionate about AI and data science. Ask me anything about my projects or experience!"
+            "Hey! Looks like my server is taking a quick break 😅 But I'm Tanushree - currently working as a Data Scientist intern at Workelevate. What would you like to know about my AI and ML work?",
+            "Oops, connection hiccup! I'm Tanushree though, working on some cool AI projects at Workelevate right now. You can always reach me at tanushreesrivastava22@gmail.com if this chat isn't cooperating!",
+            "Sorry, my backend decided to take a coffee break! 😄 But I'm here - Tanushree, passionate about AI and data science. Currently loving my internship at Workelevate. Ask me anything!"
         ];
         
         return fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)];
@@ -241,7 +234,6 @@ function addMessage(content, isUser = false) {
 
     chatMessages.insertBefore(message, typingIndicator);
     
-    // Scroll to bottom after adding message
     setTimeout(() => scrollToBottom(true), 100);
 }
 
@@ -263,27 +255,22 @@ async function sendMessage() {
     const message = chatInput.value.trim();
     if (!message) return;
 
-    // Basic input sanitization
     const sanitizedMessage = message.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
     
     console.log('Sending message:', sanitizedMessage);
 
-    // Add user message
     addMessage(sanitizedMessage, true);
     chatInput.value = '';
     adjustTextareaHeight();
 
-    // Show typing indicator
     showTyping();
 
     try {
-        // Get AI response
         const response = await getAIResponse(sanitizedMessage);
         hideTyping();
         
         console.log('Got response:', response);
         
-        // Add AI response with typing effect
         await typeMessage(response);
     } catch (error) {
         hideTyping();
@@ -311,44 +298,39 @@ async function typeMessage(content) {
     chatMessages.insertBefore(message, typingIndicator);
     const typingText = message.querySelector('.typing-text');
 
-    // Scroll to show new message
     setTimeout(() => scrollToBottom(true), 100);
 
-    // Type out the message character by character
     for (let i = 0; i <= content.length; i++) {
         typingText.textContent = content.slice(0, i);
         
-        // Scroll periodically during typing
         if (i % 20 === 0) {
             scrollToBottom(false);
         }
 
-        // Variable typing speed for more natural feel
         const delay = Math.random() * 25 + 15;
         await new Promise(resolve => setTimeout(resolve, delay));
     }
 
-    // Final scroll to bottom
     setTimeout(() => scrollToBottom(true), 100);
 }
 
-// Enhanced suggestion function with better suggestions
+// Enhanced suggestion function
 function sendSuggestion(suggestion) {
     if (!chatInput) return;
     chatInput.value = suggestion;
     sendMessage();
 }
 
-// Add better suggestion chips based on Tanushree's profile
+// Better suggestion chips
 function createSuggestionChips() {
     const suggestions = document.querySelector('.suggestions');
     if (suggestions) {
         const suggestionTexts = [
             "Tell me about your AI projects",
-            "What's your experience with machine learning?",
+            "What's your current work at Workelevate?",
             "How can I contact you?",
-            "What technologies do you work with?",
-            "Tell me about your internships"
+            "What technologies do you use?",
+            "Tell me about your background"
         ];
         
         suggestions.innerHTML = '';
@@ -368,16 +350,12 @@ function adjustTextareaHeight() {
     chatInput.style.height = Math.min(chatInput.scrollHeight, 120) + 'px';
 }
 
-// ================================
 // RESPONSIVE NAVIGATION
-// ================================
-
 function initResponsiveNavigation() {
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('navMenu');
     const body = document.body;
 
-    // Create hamburger if it doesn't exist
     if (!hamburger) {
         createHamburgerMenu();
     }
@@ -397,13 +375,11 @@ function initResponsiveNavigation() {
         }
     }
 
-    // Event listeners
     const currentHamburger = document.getElementById('hamburger');
     if (currentHamburger) {
         currentHamburger.addEventListener('click', toggleMobileMenu);
     }
 
-    // Close menu when clicking on nav links
     document.querySelectorAll('.nav-item a').forEach(link => {
         link.addEventListener('click', () => {
             if (window.innerWidth <= 768) {
@@ -415,7 +391,6 @@ function initResponsiveNavigation() {
         });
     });
 
-    // Close menu when clicking outside
     const currentNavMenu = document.getElementById('navMenu');
     if (currentNavMenu) {
         currentNavMenu.addEventListener('click', (e) => {
@@ -425,7 +400,6 @@ function initResponsiveNavigation() {
         });
     }
 
-    // Handle window resize
     window.addEventListener('resize', () => {
         if (window.innerWidth > 768) {
             const currentHamburger = document.getElementById('hamburger');
@@ -436,11 +410,9 @@ function initResponsiveNavigation() {
             body.classList.remove('nav-open');
         }
         
-        // Update desktop detection
         isDesktop = window.innerWidth >= 1024;
     });
 
-    // Keyboard navigation
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             const currentNavMenu = document.getElementById('navMenu');
@@ -449,24 +421,6 @@ function initResponsiveNavigation() {
             }
         }
     });
-
-    // Touch gestures
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    document.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
-    }, { passive: true });
-
-    document.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        const swipeDistance = touchStartX - touchEndX;
-        const currentNavMenu = document.getElementById('navMenu');
-        
-        if (swipeDistance > 50 && currentNavMenu && currentNavMenu.classList.contains('active')) {
-            toggleMobileMenu();
-        }
-    }, { passive: true });
 }
 
 function createHamburgerMenu() {
@@ -506,10 +460,7 @@ function setActivePage() {
     });
 }
 
-// ================================
 // VIEWPORT AND RESPONSIVE FIXES
-// ================================
-
 function fixMobileViewport() {
     const setVH = () => {
         const vh = window.innerHeight * 0.01;
@@ -529,12 +480,8 @@ function initTouchOptimizations() {
     }
 }
 
-// ================================
 // EVENT LISTENERS SETUP
-// ================================
-
 function setupEventListeners() {
-    // Chat input events
     if (chatInput) {
         chatInput.addEventListener('input', adjustTextareaHeight);
         
@@ -545,7 +492,6 @@ function setupEventListeners() {
             }
         });
 
-        // Prevent XSS in input
         chatInput.addEventListener('paste', (e) => {
             e.preventDefault();
             const paste = (e.clipboardData || window.clipboardData).getData('text');
@@ -555,12 +501,10 @@ function setupEventListeners() {
         });
     }
 
-    // Send button
     const sendButton = document.getElementById('sendButton');
     if (sendButton) {
         sendButton.addEventListener('click', sendMessage);
         
-        // Visual feedback
         sendButton.addEventListener('mousedown', function() {
             this.style.transform = 'scale(0.9)';
         });
@@ -574,7 +518,6 @@ function setupEventListeners() {
         });
     }
 
-    // Hover effects for cursor (desktop only)
     if (isDesktop && cursor && follower) {
         document.querySelectorAll('a, button, .suggestion-chip, .chat-input, .send-button').forEach(el => {
             el.addEventListener('mouseenter', () => {
@@ -590,32 +533,12 @@ function setupEventListeners() {
             });
         });
     }
-
-    // Suggestions responsive behavior
-    function adjustSuggestions() {
-        const suggestions = document.querySelector('.suggestions');
-        if (suggestions) {
-            if (window.innerWidth <= 768) {
-                suggestions.style.justifyContent = 'center';
-                suggestions.style.flexWrap = 'wrap';
-            } else {
-                suggestions.style.justifyContent = 'flex-start';
-            }
-        }
-    }
-
-    adjustSuggestions();
-    window.addEventListener('resize', adjustSuggestions);
 }
 
-// ================================
 // INITIALIZATION
-// ================================
-
 function initializeEverything() {
     console.log('Initializing AI Chat...');
     
-    // Core functionality
     initResponsiveNavigation();
     fixMobileViewport();
     initTouchOptimizations();
@@ -623,17 +546,14 @@ function initializeEverything() {
     setActivePage();
     createSuggestionChips();
     
-    // Visual elements
     createMatrixRain();
     
-    // Auto-focus (desktop only)
     if (chatInput && window.innerWidth >= 768) {
         setTimeout(() => {
             chatInput.focus();
         }, 500);
     }
     
-    // Initial scroll
     setTimeout(() => scrollToBottom(false), 100);
     
     console.log('AI Chat initialized successfully');
@@ -651,12 +571,12 @@ window.addEventListener('resize', () => {
     }, 250);
 });
 
-// Connection status simulation with more realistic behavior
+// Connection status simulation
 function simulateConnection() {
     const statusDot = document.querySelector('.status-dot');
     const onlineText = document.querySelector('.ai-online');
 
-    if (statusDot && onlineText && Math.random() < 0.005) { // Reduced frequency
+    if (statusDot && onlineText && Math.random() < 0.005) {
         statusDot.style.background = '#ffaa00';
         onlineText.innerHTML = '<div class="status-dot"></div>Connecting...';
 
@@ -667,7 +587,7 @@ function simulateConnection() {
     }
 }
 
-setInterval(simulateConnection, 45000); // Increased interval
+setInterval(simulateConnection, 45000);
 
 // Additional keyboard shortcuts
 document.addEventListener('keydown', (e) => {
@@ -690,7 +610,7 @@ if (document.readyState === 'loading') {
     initializeEverything();
 }
 
-// Export for debugging and testing
+// Export for debugging
 window.ChatDebug = {
     scrollToBottom,
     addMessage,

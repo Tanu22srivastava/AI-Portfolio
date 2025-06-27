@@ -589,8 +589,6 @@ body.nav-open {
     gap: 8px;
     flex-wrap: wrap;
     justify-content: center;
-    max-height: 80px;
-    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
 
@@ -1366,4 +1364,30 @@ html {
     .chat-container {
         margin: 0 20px;
     }
+}
+
+/* --- Mobile Responsive Fix for Suggestions (AI Chat) --- */
+@media (max-width: 600px) {
+  .suggestions {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 8px 8px;
+    max-height: none;
+    overflow-y: visible;
+    padding: 0 4px;
+  }
+  .suggestion-chip {
+    flex: 1 1 45%;
+    min-width: 120px;
+    max-width: 100%;
+    margin-bottom: 6px;
+    white-space: normal;
+    text-align: center;
+    font-size: 13px;
+    padding: 10px 6px;
+  }
+  .suggestions-title {
+    font-size: 12px;
+    margin-bottom: 6px;
+  }
 }
