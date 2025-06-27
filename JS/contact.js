@@ -22,7 +22,6 @@ function animateCursor() {
 }
 animateCursor();
 
-// Create stars background
 function createStars() {
     const starsContainer = document.getElementById('stars');
     const starCount = 100;
@@ -40,38 +39,29 @@ function createStars() {
     }
 }
 
-// Form handling
 const contactForm = document.getElementById('contactForm');
 const submitButton = contactForm.querySelector('.submit-button');
 const successMessage = document.getElementById('successMessage');
 
 contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-
-    // Add loading state
     submitButton.classList.add('loading');
     submitButton.textContent = 'Sending...';
 
-    // Simulate form submission delay
     await new Promise(resolve => setTimeout(resolve, 2000));
 
-    // Show success message
     successMessage.classList.add('show');
 
-    // Reset form
     contactForm.reset();
 
-    // Reset button
     submitButton.classList.remove('loading');
     submitButton.textContent = 'Send Message';
 
-    // Hide success message after 5 seconds
     setTimeout(() => {
         successMessage.classList.remove('show');
     }, 5000);
 });
 
-// Form validation and real-time feedback
 const formInputs = document.querySelectorAll('.form-input, .form-textarea');
 
 formInputs.forEach(input => {
@@ -83,16 +73,13 @@ function validateField(e) {
     const field = e.target;
     const value = field.value.trim();
 
-    // Remove existing error styling
     field.classList.remove('error');
 
-    // Check if required field is empty
     if (field.hasAttribute('required') && !value) {
         showFieldError(field, 'This field is required');
         return false;
     }
 
-    // Email validation
     if (field.type === 'email' && value) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(value)) {
@@ -106,14 +93,10 @@ function validateField(e) {
 
 function showFieldError(field, message) {
     field.classList.add('error');
-
-    // Remove existing error message
     const existingError = field.parentNode.querySelector('.error-message');
     if (existingError) {
         existingError.remove();
     }
-
-    // Add error message
     const errorDiv = document.createElement('div');
     errorDiv.className = 'error-message';
     errorDiv.textContent = message;
@@ -132,7 +115,6 @@ function clearErrors(e) {
     }
 }
 
-// Add error styling to CSS
 const style = document.createElement('style');
 style.textContent = `
             .form-input.error,
@@ -143,14 +125,12 @@ style.textContent = `
         `;
 document.head.appendChild(style);
 
-// Auto-resize textarea
 const messageTextarea = document.getElementById('message');
 messageTextarea.addEventListener('input', function () {
     this.style.height = 'auto';
     this.style.height = Math.max(this.scrollHeight, 120) + 'px';
 });
 
-// Hover effects for cursor
 document.querySelectorAll('a, button, .form-input, .form-textarea, .contact-method, .social-link').forEach(el => {
     el.addEventListener('mouseenter', () => {
         cursor.style.transform += ' scale(1.5)';
@@ -163,10 +143,8 @@ document.querySelectorAll('a, button, .form-input, .form-textarea, .contact-meth
     });
 });
 
-// Contact method click animations
 document.querySelectorAll('.contact-method').forEach(method => {
     method.addEventListener('click', function (e) {
-        // Create ripple effect
         const ripple = document.createElement('div');
         ripple.style.position = 'absolute';
         ripple.style.width = '10px';
@@ -190,7 +168,6 @@ document.querySelectorAll('.contact-method').forEach(method => {
     });
 });
 
-// Add ripple animation
 const rippleStyle = document.createElement('style');
 rippleStyle.textContent = `
             @keyframes ripple {
@@ -202,7 +179,6 @@ rippleStyle.textContent = `
         `;
 document.head.appendChild(rippleStyle);
 
-// Form field focus animations
 formInputs.forEach(input => {
     input.addEventListener('focus', function () {
         this.parentNode.style.transform = 'scale(1.02)';
@@ -214,7 +190,6 @@ formInputs.forEach(input => {
     });
 });
 
-// Parallax effect for background
 document.addEventListener('mousemove', (e) => {
     const moveX = (e.clientX / window.innerWidth) * 20;
     const moveY = (e.clientY / window.innerHeight) * 20;
@@ -223,11 +198,8 @@ document.addEventListener('mousemove', (e) => {
         `translate(${moveX}px, ${moveY}px)`;
 });
 
-// Initialize
 document.addEventListener('DOMContentLoaded', () => {
     createStars();
-
-    // Add entrance animations
     const elements = document.querySelectorAll('.contact-method, .social-link');
     elements.forEach((el, index) => {
         el.style.opacity = '0';
@@ -235,8 +207,6 @@ document.addEventListener('DOMContentLoaded', () => {
         el.style.animation = `fadeInUp 0.6s ease forwards ${index * 0.1}s`;
     });
 });
-
-// Add fadeInUp animation
 const fadeInStyle = document.createElement('style');
 fadeInStyle.textContent = `
             @keyframes fadeInUp {
@@ -254,19 +224,15 @@ document.addEventListener('keydown', (e) => {
 
     switch (e.key) {
         case 'Escape':
-            // Clear form focus
             document.activeElement.blur();
             break;
         case 'Enter':
             if (e.target.tagName !== 'TEXTAREA' && e.target.tagName !== 'BUTTON') {
-                // Focus on first form field
                 document.getElementById('firstName').focus();
             }
             break;
     }
 });
-
-// Add some interactive feedback
 submitButton.addEventListener('mouseenter', function () {
     this.style.transform = 'translateY(-2px) scale(1.02)';
 });
@@ -277,7 +243,6 @@ submitButton.addEventListener('mouseleave', function () {
     }
 });
 
-// Copy email to clipboard functionality
 const emailMethod = document.querySelector('a[href^="mailto:"]');
 emailMethod.addEventListener('click', function (e) {
     e.preventDefault();
@@ -288,7 +253,6 @@ emailMethod.addEventListener('click', function (e) {
             showTooltip(this, 'Email copied to clipboard!');
         });
     } else {
-        // Fallback for older browsers
         const tempInput = document.createElement('input');
         tempInput.value = email;
         document.body.appendChild(tempInput);
@@ -355,44 +319,29 @@ window.addEventListener('beforeunload', (e) => {
     }
 });
 
-
-// ================================
-// RESPONSIVE NAVIGATION JAVASCRIPT
-// Add this to ALL your JS files
-// ================================
-
-// Mobile Navigation Functionality
 function initResponsiveNavigation() {
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('navMenu');
     const body = document.body;
     const navLinks = document.querySelectorAll('.nav-item a');
 
-    // Create hamburger if it doesn't exist
     if (!hamburger && window.innerWidth <= 768) {
         createHamburgerMenu();
     }
-
-    // Toggle mobile menu
     function toggleMobileMenu() {
         if (hamburger && navMenu) {
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
             body.classList.toggle('nav-open');
-            
-            // Update ARIA attributes for accessibility
             const isOpen = navMenu.classList.contains('active');
             hamburger.setAttribute('aria-expanded', isOpen);
             navMenu.setAttribute('aria-hidden', !isOpen);
         }
     }
-
-    // Event listeners
     if (hamburger) {
         hamburger.addEventListener('click', toggleMobileMenu);
     }
 
-    // Close menu when clicking on nav links (mobile)
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
             if (window.innerWidth <= 768 && navMenu.classList.contains('active')) {
@@ -400,8 +349,6 @@ function initResponsiveNavigation() {
             }
         });
     });
-
-    // Close menu when clicking outside (mobile)
     if (navMenu) {
         navMenu.addEventListener('click', (e) => {
             if (e.target === navMenu) {
@@ -410,7 +357,6 @@ function initResponsiveNavigation() {
         });
     }
 
-    // Handle window resize
     window.addEventListener('resize', () => {
         if (window.innerWidth > 768) {
             if (hamburger) hamburger.classList.remove('active');
@@ -419,14 +365,11 @@ function initResponsiveNavigation() {
         }
     });
 
-    // Keyboard navigation
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && navMenu && navMenu.classList.contains('active')) {
             toggleMobileMenu();
         }
     });
-
-    // Touch gestures for better mobile UX
     let touchStartX = 0;
     let touchEndX = 0;
 
@@ -442,16 +385,11 @@ function initResponsiveNavigation() {
     function handleSwipe() {
         const swipeDistance = touchStartX - touchEndX;
         if (swipeDistance > 50 && navMenu && navMenu.classList.contains('active')) {
-            // Swipe left - close menu
             toggleMobileMenu();
         }
     }
-
-    // Set active page
     setActivePage();
 }
-
-// Create hamburger menu dynamically if not present
 function createHamburgerMenu() {
     const nav = document.querySelector('nav');
     const existingHamburger = document.getElementById('hamburger');
@@ -631,8 +569,6 @@ function initAllResponsiveFeatures() {
     initResponsiveImages();
     handleOrientationChange();
     fixMobileViewport();
-    
-    // Add loaded class for CSS animations
     document.body.classList.add('loaded');
 }
 
@@ -684,6 +620,4 @@ const ResponsiveUtils = {
         };
     }
 };
-
-// Add to global scope
 window.ResponsiveUtils = ResponsiveUtils;
